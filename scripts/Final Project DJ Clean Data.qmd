@@ -42,9 +42,11 @@ olyswim <- read_csv(here("data", "Olympic_Swimming_Results_1912to2020.csv")) %>%
 
 ```{r}
 olyswim <- olyswim %>%
-  filter(year >= 1919, year <=2020,
+  filter(year >= 1969, year <=2020,
          relay == 0, rank != 0, rank !=4, rank !=5) %>%
   select(-location, -relay) %>%
+    group_by(team) %>%
+  filter(team == "USA" | team == "CHN" | team == "FRA") %>%
 
   mutate(foo = str_replace_all(results, "\\.", ":")) %>%
   separate_wider_delim(foo, ":", names = c("h", "m", "s", "ms"), too_few = "align_end") %>%
@@ -62,8 +64,16 @@ olyswim <- olyswim %>%
 ```{r}
 olyswimgenderstroke <- olyswim %>%
   group_by(gender, stroke) %>%
-  summarise(mean_time = mean(results))
+  summarise(mean_time = mean(results_sec))
 
 summarize(olyswimgenderstroke)
 ```
 
+# Creating wide dataframe
+```{r}
+olyswim_genderwide <- olyswim %>%
+  pivot_wider(
+  names_from = gender, 
+  values_from = athlete
+  )
+```
