@@ -24,51 +24,37 @@ library(tidyverse)
 library(janitor)
 library(ggthemes)
 library(gghighlight)
-library(fivethirtyeight)
-library(ggridges)
-library(mdsr)
 library(tidyr)
-library(lubridate)
-
 
 ```
 
 # Load data
+
 ```{r}
 here("data", "Olympic_Swimming_Results_1912to2020.csv")
 
 olyswim <- read_csv(here("data", "Olympic_Swimming_Results_1912to2020.csv")) %>%
   characterize() %>%
   clean_names()
-
-
 ```
-
-```{r}
-olyswim %>%
-  mutate(secondsonly = str_detect(results, "^[^.:\r\n]*$"),
-         secmilisec = str_detect(results, "^[^.\r\n]*\.[^.\r\n]*$"),
-         str_detect()) %>% View()
-```
-
-
 
 # Cleaning/organizing data
+
 ```{r}
 olyswim <- olyswim %>%
   filter(year >= 1919, year <=2020,
          relay == 0, rank != 0, rank !=4, rank !=5) %>%
   select(-location, -relay) %>%
-  mutate(distance_in_meters = parse_number(distance_in_meters),
-         foo = lubridate::hms(results)
-         
-         
-         
-         # results_minute = gsub("(\\d)(:.*)", "\\1", results),
-         # results_second = gsub("(\\d:)(.*)", "\\2", results)
-         )
-  
 
+  mutate(foo = str_replace_all(results, "\\.", ":")) %>%
+  separate_wider_delim(foo, ":", names = c("h", "m", "s", "ms"), too_few = "align_end") %>%
+  mutate(across(c(h:ms), as.numeric),
+         across(c(h:ms), ~as.numeric(ifelse(is.na(.), "0", .))),
+         results_sec = case_when(
+           s == 0 ~ as.character(ms),
+           s!= 0 ~ paste0((h * 360) + (m * 60) + (s), ".", ms)
+         ),
+         results_sec = as.numeric(results_sec))
   
 ```
 
@@ -79,7 +65,5 @@ olyswimgenderstroke <- olyswim %>%
   summarise(mean_time = mean(results))
 
 summarize(olyswimgenderstroke)
-```
-
 ```
 
