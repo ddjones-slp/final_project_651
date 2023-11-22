@@ -86,3 +86,9 @@ Testing the push
 head(olyswim)
 dim(olyswim)
 ```
+
+dim(olyswim)
+
+```{r}
+dim(olyswim)
+```
