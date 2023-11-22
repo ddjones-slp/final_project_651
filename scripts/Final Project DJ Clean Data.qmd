@@ -80,17 +80,8 @@ olyswim_genderwide <- olyswim %>%
   )
 ```
 
-Testing the push
 
-```{r}
-head(olyswim)
-dim(olyswim)
-```
 
-dim(olyswim)
-
-```{r}
-dim(olyswim)
 ```
 
 ## Attempting to pivot_longer. I didn't see a way to pivot the data we are working with, so I chose to make a subset (small_team_data)and make it messy and then pivot_longer. I have achieved messy, but now I'm having trouble cleaning the mess. Insights and suggestings are welcome.\`\`\`\`\`\`{r}small_team_data \<- olyswim %\>% filter( distance_in_meters =="100m"\|gender == "women") %\>% select(year, stroke, team, rank) wide_data \<- pivot_wider(small_team_data, names_from = team, values_from = rank)long_data \<- pivot_longer(wide_data, cols == "USA"\| cols == "ROC", names_to = "time", values_to = "value")
