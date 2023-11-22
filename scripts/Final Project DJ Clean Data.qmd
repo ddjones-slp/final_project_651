@@ -84,4 +84,5 @@ Testing the push
 
 ```{r}
 head(olyswim)
+dim(olyswim)
 ```
