@@ -61,6 +61,7 @@ olyswim <- olyswim %>%
 ```
 
 # Creating gender and stroke dataframe
+
 ```{r}
 olyswimgenderstroke <- olyswim %>%
   group_by(gender, stroke) %>%
@@ -70,10 +71,17 @@ summarize(olyswimgenderstroke)
 ```
 
 # Creating wide dataframe
+
 ```{r}
 olyswim_genderwide <- olyswim %>%
   pivot_wider(
   names_from = gender, 
   values_from = athlete
   )
+```
+
+Testing the push
+
+```{r}
+head(olyswim)
 ```
