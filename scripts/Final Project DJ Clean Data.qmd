@@ -3,7 +3,7 @@ title: "Final Project"
 author: "Danielle Jones & Katie Perez"
 format: html
 editor: visual
-  highlight-style: pygments
+highlight-style: pygments # I had to remove the space before this to get it to render (???) 
 syntax: tango
 execute: 
   echo: true
@@ -22,8 +22,8 @@ library(here)
 library(rio)
 library(tidyverse)
 library(janitor)
-library(ggthemes)
-library(gghighlight)
+library(ggthemes) #I don't think you use this package - unless I'm mistaken and it's somewhere in the YAML
+library(gghighlight) #Same as above!
 library(tidyr)
 
 ```
@@ -31,7 +31,7 @@ library(tidyr)
 # Load data
 
 ```{r}
-here("data", "Olympic_Swimming_Results_1912to2020.csv")
+here("data", "Olympic_Swimming_Results_1912to2020.csv") #You don't need this line of code since you are saying the same thing in the line below!!
 
 olyswim <- read_csv(here("data", "Olympic_Swimming_Results_1912to2020.csv")) %>%
   characterize() %>%
@@ -47,7 +47,6 @@ olyswim <- olyswim %>%
   select(-location, -relay) %>%
     group_by(team) %>%
   filter(team == "USA" | team == "CHN" | team == "FRA") %>%
-
   mutate(foo = str_replace_all(results, "\\.", ":")) %>%
   separate_wider_delim(foo, ":", names = c("h", "m", "s", "ms"), too_few = "align_end") %>%
   mutate(across(c(h:ms), as.numeric),
@@ -67,7 +66,11 @@ olyswimgenderstroke <- olyswim %>%
   group_by(gender, stroke) %>%
   summarise(mean_time = mean(results_sec))
 
-summarize(olyswimgenderstroke)
+summarize(olyswimgenderstroke) #For me this is only showing a tibble with 1 column (gender) and two rows (men & women). I'm assuming you want to show more than this? See below :)
+
+olyswimgenderstroke %>%
+summarise(Stroke = stroke,
+          AverageTime = mean_time)
 ```
 
 # Creating wide dataframe
@@ -80,23 +83,16 @@ olyswim_genderwide <- olyswim %>%
   )
 ```
 
-
-
-
-
 ## Attempting to pivot_longer. I didn't see a way to pivot the data we are working with, so I chose to make a subset (small_team_data)and make it messy and then pivot_longer. I have achieved messy, but now I'm having trouble cleaning the mess. Insights and suggestings are welcome.
-
 
 ```{r}
 small_team_data <- olyswim %>% 
   filter( distance_in_meters =="100m"|gender == "women") %>% 
   select(year, stroke, team, rank) 
 
-wide_data <- pivot_wider(small_team_data, names_from = team, values_from = rank)
+wide_data <- pivot_wider(small_team_data, names_from = team, values_from = rank) # There are multiple swimmers from the USA who swam in the same year and stroke which is causing the c(3,3) in your rank column in the long_data set
 
-long_data <- pivot_longer(wide_data, cols == "USA"| cols == "ROC", names_to = "time", values_to = "value")
+long_data <- pivot_longer(wide_data, cols = c("USA","CHN", "FRA"), #You don't have "ROC" as a column in your data which is why this part wasn't running.
+                          names_to = "country", 
+                          values_to = "rank")
 ```
-
-
-
-
