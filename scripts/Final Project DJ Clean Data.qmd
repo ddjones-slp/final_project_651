@@ -80,12 +80,7 @@ olyswim_genderwide <- olyswim %>%
   )
 ```
 
-
-
-
-
 ## Attempting to pivot_longer. I didn't see a way to pivot the data we are working with, so I chose to make a subset (small_team_data)and make it messy and then pivot_longer. I have achieved messy, but now I'm having trouble cleaning the mess. Insights and suggestings are welcome.
-
 
 ```{r}
 small_team_data <- olyswim %>% 
@@ -96,7 +91,40 @@ wide_data <- pivot_wider(small_team_data, names_from = team, values_from = rank)
 
 long_data <- pivot_longer(wide_data, cols == "USA"| cols == "ROC", names_to = "time", values_to = "value")
 ```
+## Visualize the data options
+### graph 1
+Observations: why is there no value for the men's backstroke? Perhaps because it is so small? Do I adjust the y scale to see the backstroke point? Interesting that the men's times are slower in the freestyle and the breaststroke.
+```{r}
+ggplot(olyswimgenderstroke, aes(gender, mean_time)) +
+  geom_point(aes(color = stroke))
+```
+
+### graph 2
+This graph does not appear to be useful.I was hoping to visualize the number medals each team won each year. If I look at one stroke with one length, this might work. Then the research question could be which of these three teams earned the greatest number of medals each year in the "100m backstroke".
+```{r}
+ggplot(small_team_data, aes(year, rank)) + 
+geom_col(aes(fill = team),
+             position = "dodge")
+### graph 3
+I would like to visualize using facet wrap for each country. It would be more interesting to have top speed (least time) for each stroke. Will need to select one distance for each stroke. Points for each stroke top time. Include a smooth line to observe an increase or decease in medaling times for each country. I would assume they would all increase.
+```{r}
+ggplot(small_team_data, aes(year, body_mass_g)) + 
+  geom_point() +
+  geom_smooth() +
+  facet_wrap(~species)
+```
 
 
 
 
+### subseting data to create a visual of USA women.
+Potential research question: have the US women increased their speed in the 100m over the years?
+I think I might need to group by stroke and then select the slowest time to capture the fastest usa female swimmer each year and view the color of line by the different stroke. Also, there are a variety of lengths for each stroke. Consider flitering for only 100m. The problem I see with the graph is that it will gloss over the missing data, the years when the USA women did not place in the top 3.
+```{r}
+
+
+usa_women <- olyswim %>% filter(team == "USA", gender == "Women")
+
+ggplot(usa_women, aes(year, results, color = stroke)) +
+  geom_line() 
+```
