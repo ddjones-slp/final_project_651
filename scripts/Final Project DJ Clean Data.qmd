@@ -46,6 +46,8 @@ olyswim <- read_csv(here("data", "Olympic_Swimming_Results_1912to2020.csv")) %>%
 
 # Cleaning/organizing data
 ```{r}
+options(scipen = 999) #I added this code to remove the scientific notation from the rest of your code
+
 olyswim <- olyswim %>%
   filter(year >= 1969, year <=2020,
          relay == 0, rank != 0, rank !=4, rank !=5) %>%
@@ -62,6 +64,12 @@ olyswim <- olyswim %>%
            s!= 0 ~ paste0((h * 360) + (m * 60) + (s), ".", ms)
          ),
          results_sec = as.numeric(results_sec))
+
+#I think it's a great idea to turn everything into seconds so that it's easier to compare! My suggestion is to maybe add a column that indicates the speed  (maybe in meters per second) of the swimmer. This way you can compare across strokes in your figures w/out the distance of the race affecting your results/y axis. I added code below doing this. You could replace y values below w/ speed value for visualizations.
+
+olyswim <- olyswim %>% 
+  mutate(speed = as.numeric(distance_in_meters)/as.numeric(results_sec))
+
 ```
 
 # Creating gender and stroke dataframe
@@ -85,13 +93,15 @@ olyswim_genderwide <- olyswim %>%
 ## Attempting to pivot_longer. I didn't see a way to pivot the data we are working with, so I chose to make a subset (small_team_data)and make it messy and then pivot_longer. I have achieved messy, but now I'm having trouble cleaning the mess. Insights and suggestings are welcome.
 
 ```{r}
-#small_team_data <- olyswim %>% 
-  filter( distance_in_meters =="100m"|gender == "women") %>% 
+small_team_data <- olyswim %>% 
+  filter( distance_in_meters =="100"|gender == "Women") %>% 
   select(year, stroke, team, rank) 
 
-#wide_data <- pivot_wider(small_team_data, names_from = team, values_from = rank)
+wide_data <- pivot_wider(small_team_data, names_from = team, values_from = rank)
 
-#long_data <- pivot_longer(wide_data, cols == "USA"| cols == "ROC", names_to = "time", values_to = "value")
+long_data <- pivot_longer(wide_data, cols == "USA"| cols == "ROC", names_to = "time", values_to = "value")
+
+#When I ran this chunk, the small_team_data created a frame w/ 0 obs. I changed "100m" to just "100" and "women" to "Women" and that fixed the issue! 
 ```
 
 ## Visualize the data options
@@ -103,6 +113,7 @@ Observations: why is there no value for the men's backstroke? Perhaps because it
 ```{r}
 ggplot(olyswimgenderstroke, aes(gender, mean_time)) +
   geom_point(aes(color = stroke))
+
 ```
 
 ### graph 2
@@ -186,6 +197,8 @@ gold_plot_piechart <- gold_country %>%
                     breaks = c("USA", "CHN", "FRA"),
                     labels = c("United States", "China", "France"))
 gold_plot_piechart
+
+#I really like this piechart! And awesome job getting the numbers to show up on the plot - I ALWAYS struggle with this. I didn't know about the position_stack function until now and I think that will help in the future!
 ```
 
 # Gold donut plot
@@ -416,6 +429,8 @@ agg_medal_barchart <- agg_medal_long %>%
   theme_minimal()
 
 agg_medal_barchart
+
+#This plot is also super great! I love how the colors correspond with the type of medal. That makes it super clear for the reader. 
 ```
 
 # Over Time Line Graph of Medals
@@ -470,14 +485,17 @@ agg_line_medals <-  agg_stacked_long %>%
     color = "Medal"
   ) +
     theme_minimal() +
-  scale_x_continuous(breaks = c(1972, 1976, 1980, 1984, 1988, 1992, 1996, 2000, 2004, 2008, 2012, 2016, 2020),
+  scale_x_continuous(breaks = seq(from = 1972, to = 2020, by = 4), #Changed this to a seq 
                    labels = c("1972", "1976", "1980", "1984", "1988", "1992", "1996", "2000", "2004", "2008", "2012", "2016", "2020")) +
   scale_y_continuous(
     limits = c(0, 18),
-    breaks = seq(0, 18, by = 2))
+    breaks = seq(0, 18, by = 2)) +
+  scale_color_manual(values = c("Gold" = "gold", "Silver" = "gray", "Bronze" = "peru")) #changed colors here
 
 
 agg_line_medals
+
+#I love this concept for a visualization as well! I thought it'd be really great if the the colors here also reflected the colors of the medals - like you did earlier on. I added code above if you would like it to show up that way. 
 ```
 
 
