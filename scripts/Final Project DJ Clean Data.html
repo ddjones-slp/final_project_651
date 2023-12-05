@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Danielle Jones &amp; Katie Perez">
+
+<title>Final Project - The Evolution: A half century of Olympic swimming analysis (1970-2020)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="Final Project DJ Clean Data_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Final Project DJ Clean Data_files/libs/quarto-html/quarto.js"></script>
+<script src="Final Project DJ Clean Data_files/libs/quarto-html/popper.min.js"></script>
+<script src="Final Project DJ Clean Data_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Final Project DJ Clean Data_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Final Project DJ Clean Data_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Final Project DJ Clean Data_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Final Project DJ Clean Data_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Final Project DJ Clean Data_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Final Project DJ Clean Data_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of Contents</h2>
+   
+  <ul>
+  <li><a href="#abstract" id="toc-abstract" class="nav-link active" data-scroll-target="#abstract">Abstract</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#research-questions" id="toc-research-questions" class="nav-link" data-scroll-target="#research-questions"><strong>Research Questions</strong></a></li>
+  </ul></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a></li>
+  <li><a href="#results-1" id="toc-results-1" class="nav-link" data-scroll-target="#results-1">Results</a></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Final Project - The Evolution: A half century of Olympic swimming analysis (1970-2020)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Danielle Jones &amp; Katie Perez </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="abstract" class="level2">
+<h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
+<section id="this-research-paper-explores-the-intricate-web-of-olympic-swimming-events-over-50-years-1969-2020-unraveling-trends-in-medal-distributions-among-countries-and-analyzing-shifts-in-finish-times-across-various-competitions.-the-study-focuses-on-the-performance-of-the-united-states-china-and-france.-additionally-the-investigation-delves-into-the-gold-medal-olympic-swim-times-particularly-in-the-highly-competitive-100m-races.-the-dataset-we-analyzed-was-obtained-from-kaggle.com-comprising-10-columns-and-4359-observations-detailing-olympic-swimming-events-including-distance-stroke-gender-team-athlete-names-results-and-medals.-we-created-a-subset-of-this-data-to-focus-on-the-years-1912-to-2020.-our-hypotheses-explore-the-changes-in-distribution-of-olympic-swim-medals-among-the-united-states-china-and-france-as-well-as-in-improvement-in-race-times-specifically-the-100m-events.-the-united-states-consistently-dominated-medal-earning.-china-and-france-demonstrated-smaller-but-consistent-performances-over-specific-periods.-additionally-we-examined-gold-medal-finish-times-in-100m-races-revealing-a-significant-improvement-over-the-time-period.-this-analysis-provides-insights-into-the-evolution-of-olympic-swimming-covering-medal-distributions-and-trends-in-finish-times.-the-observed-gender-specific-nuance-in-performance-trends-prompts-a-reevaluation-of-training-methodologies-technological-influences-and-societal-factors-shaping-the-landscape-of-competitive-swimming.-further-multidisciplinary-research-is-recommended-to-deepen-our-understanding-of-these-trends-and-their-underlying-causes." class="level5">
+<h5 class="anchored" data-anchor-id="this-research-paper-explores-the-intricate-web-of-olympic-swimming-events-over-50-years-1969-2020-unraveling-trends-in-medal-distributions-among-countries-and-analyzing-shifts-in-finish-times-across-various-competitions.-the-study-focuses-on-the-performance-of-the-united-states-china-and-france.-additionally-the-investigation-delves-into-the-gold-medal-olympic-swim-times-particularly-in-the-highly-competitive-100m-races.-the-dataset-we-analyzed-was-obtained-from-kaggle.com-comprising-10-columns-and-4359-observations-detailing-olympic-swimming-events-including-distance-stroke-gender-team-athlete-names-results-and-medals.-we-created-a-subset-of-this-data-to-focus-on-the-years-1912-to-2020.-our-hypotheses-explore-the-changes-in-distribution-of-olympic-swim-medals-among-the-united-states-china-and-france-as-well-as-in-improvement-in-race-times-specifically-the-100m-events.-the-united-states-consistently-dominated-medal-earning.-china-and-france-demonstrated-smaller-but-consistent-performances-over-specific-periods.-additionally-we-examined-gold-medal-finish-times-in-100m-races-revealing-a-significant-improvement-over-the-time-period.-this-analysis-provides-insights-into-the-evolution-of-olympic-swimming-covering-medal-distributions-and-trends-in-finish-times.-the-observed-gender-specific-nuance-in-performance-trends-prompts-a-reevaluation-of-training-methodologies-technological-influences-and-societal-factors-shaping-the-landscape-of-competitive-swimming.-further-multidisciplinary-research-is-recommended-to-deepen-our-understanding-of-these-trends-and-their-underlying-causes.">This research paper explores the intricate web of Olympic swimming events over 50 years (1969-2020), unraveling trends in medal distributions among countries and analyzing shifts in finish times across various competitions. The study focuses on the performance of the United States, China, and France. Additionally, the investigation delves into the gold medal Olympic swim times, particularly in the highly competitive 100m races. The dataset we analyzed was obtained from Kaggle.com, comprising 10 columns and 4359 observations, detailing Olympic swimming events, including distance, stroke, gender, team, athlete names, results, and medals. We created a subset of this data to focus on the years 1912 to 2020. Our hypotheses explore the changes in distribution of Olympic swim medals among the United States, China, and France as well as in improvement in race times, specifically the 100m events. The United States consistently dominated medal earning. China and France demonstrated smaller but consistent performances over specific periods. Additionally, we examined gold medal finish times in 100m races revealing a significant improvement over the time period. This analysis provides insights into the evolution of Olympic swimming, covering medal distributions and trends in finish times. The observed gender-specific nuance in performance trends prompts a reevaluation of training methodologies, technological influences, and societal factors shaping the landscape of competitive swimming. Further multidisciplinary research is recommended to deepen our understanding of these trends and their underlying causes.</h5>
+</section>
+</section>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<section id="olympic-swimming-stands-as-a-testament-to-the-pursuit-of-excellence-showcasing-the-culmination-of-athleticism-dedication-and-technological-advancements-over-the-past-50-years.-this-research-paper-delves-into-the-detailed-web-of-olympic-swimming-events-examining-medal-distributions-among-countries-and-discerning-trends-in-finish-times-across-various-competitions-from-1969-to-2020." class="level5">
+<h5 class="anchored" data-anchor-id="olympic-swimming-stands-as-a-testament-to-the-pursuit-of-excellence-showcasing-the-culmination-of-athleticism-dedication-and-technological-advancements-over-the-past-50-years.-this-research-paper-delves-into-the-detailed-web-of-olympic-swimming-events-examining-medal-distributions-among-countries-and-discerning-trends-in-finish-times-across-various-competitions-from-1969-to-2020.">Olympic swimming stands as a testament to the pursuit of excellence, showcasing the culmination of athleticism, dedication, and technological advancements over the past 50 years. This research paper delves into the detailed web of Olympic swimming events, examining medal distributions among countries and discerning trends in finish times across various competitions from 1969 to 2020.</h5>
+</section>
+<section id="a-key-focus-of-our-analysis-centers-on-the-shifts-in-the-distribution-of-olympic-swim-medals-among-the-nations-of-united-states-china-france-over-a-span-of-50-years.-the-hypothesis-guiding-this-investigation-suggests-that-changes-in-training-paradigms-the-evolution-of-talent-pools-and-technological-innovations-may-have-contributed-to-fluctuations-in-the-total-number-of-medals-clinched-by-each-of-these-countries-tcha2003reconsidering-fone2022effect.-this-investigation-seeks-to-shed-light-on-the-nuanced-landscape-of-success-within-the-realm-of-olympic-swimming." class="level5">
+<h5 class="anchored" data-anchor-id="a-key-focus-of-our-analysis-centers-on-the-shifts-in-the-distribution-of-olympic-swim-medals-among-the-nations-of-united-states-china-france-over-a-span-of-50-years.-the-hypothesis-guiding-this-investigation-suggests-that-changes-in-training-paradigms-the-evolution-of-talent-pools-and-technological-innovations-may-have-contributed-to-fluctuations-in-the-total-number-of-medals-clinched-by-each-of-these-countries-tcha2003reconsidering-fone2022effect.-this-investigation-seeks-to-shed-light-on-the-nuanced-landscape-of-success-within-the-realm-of-olympic-swimming.">A key focus of our analysis centers on the shifts in the distribution of Olympic swim medals among the nations of United States, China, France over a span of 50 years. The hypothesis guiding this investigation suggests that changes in training paradigms, the evolution of talent pools, and technological innovations may have contributed to fluctuations in the total number of medals clinched by each of these countries <span class="citation" data-cites="tcha2003reconsidering fone2022effect">(<a href="#ref-tcha2003reconsidering" role="doc-biblioref">Tcha and Pershin 2003</a>; <a href="#ref-fone2022effect" role="doc-biblioref">Fone and Tillaar 2022</a>)</span>. This investigation seeks to shed light on the nuanced landscape of success within the realm of Olympic swimming.</h5>
+</section>
+<section id="moreover-our-scrutiny-extends-to-the-mean-olympic-swim-times-particularly-in-the-highly-competitive-100m-races.-a-consistent-downward-trend-in-these-finish-times-unfolds-suggesting-an-ongoing-improvement-in-overall-performance.-intriguingly-our-findings-reveal-a-distinctive-gender-specific-nuancethe-rate-of-improvement-in-womens-100m-race-times-has-outpaced-that-of-men-signaling-a-noteworthy-trend-of-greater-enhancement-in-womens-swimming-performance-over-the-decades." class="level5">
+<h5 class="anchored" data-anchor-id="moreover-our-scrutiny-extends-to-the-mean-olympic-swim-times-particularly-in-the-highly-competitive-100m-races.-a-consistent-downward-trend-in-these-finish-times-unfolds-suggesting-an-ongoing-improvement-in-overall-performance.-intriguingly-our-findings-reveal-a-distinctive-gender-specific-nuancethe-rate-of-improvement-in-womens-100m-race-times-has-outpaced-that-of-men-signaling-a-noteworthy-trend-of-greater-enhancement-in-womens-swimming-performance-over-the-decades.">Moreover, our scrutiny extends to the mean Olympic swim times, particularly in the highly competitive 100m races. A consistent downward trend in these finish times unfolds, suggesting an ongoing improvement in overall performance. Intriguingly, our findings reveal a distinctive gender-specific nuance—the rate of improvement in women’s 100m race times has outpaced that of men, signaling a noteworthy trend of greater enhancement in women’s swimming performance over the decades.</h5>
+</section>
+<section id="our-aim-is-to-explore-and-gain-some-understanding-of-the-sports-trajectory-and-evolution.-by-unraveling-the-intricate-patterns-woven-into-the-fabric-of-olympic-swimming-events-we-aim-to-contribute-valuable-insights-to-both-the-sports-community-and-enthusiasts-alike-fostering-a-deeper-appreciation-for-the-evolution-of-excellence-in-the-aquatic-arena." class="level5">
+<h5 class="anchored" data-anchor-id="our-aim-is-to-explore-and-gain-some-understanding-of-the-sports-trajectory-and-evolution.-by-unraveling-the-intricate-patterns-woven-into-the-fabric-of-olympic-swimming-events-we-aim-to-contribute-valuable-insights-to-both-the-sports-community-and-enthusiasts-alike-fostering-a-deeper-appreciation-for-the-evolution-of-excellence-in-the-aquatic-arena.">Our aim is to explore and gain some understanding of the sport’s trajectory and evolution. By unraveling the intricate patterns woven into the fabric of Olympic swimming events, we aim to contribute valuable insights to both the sports community and enthusiasts alike, fostering a deeper appreciation for the evolution of excellence in the aquatic arena.</h5>
+</section>
+<section id="research-questions" class="level3">
+<h3 class="anchored" data-anchor-id="research-questions"><strong>Research Questions</strong></h3>
+<section id="research-question-1-rq1" class="level5">
+<h5 class="anchored" data-anchor-id="research-question-1-rq1"><strong>Research Question 1 (RQ1):</strong></h5>
+</section>
+<section id="the-distribution-of-olympic-swim-medals-among-the-united-states-china-france-has-undergone-dynamic-changes-over-the-past-50-years-driven-by-a-complex-interplay-of-factors.-we-hypothesize-there-will-be-fluctuations-in-medal-earning-by-the-individual-countries-as-variations-in-sports-infrastructure-international-cooperation-changes-in-rules-and-regulations-economic-factors-cultural-attitudes-and-the-globalization-of-sports-contribute-significantly-to-the-success-rates-of-these-nations-in-the-field-of-olympic-swimming." class="level5">
+<h5 class="anchored" data-anchor-id="the-distribution-of-olympic-swim-medals-among-the-united-states-china-france-has-undergone-dynamic-changes-over-the-past-50-years-driven-by-a-complex-interplay-of-factors.-we-hypothesize-there-will-be-fluctuations-in-medal-earning-by-the-individual-countries-as-variations-in-sports-infrastructure-international-cooperation-changes-in-rules-and-regulations-economic-factors-cultural-attitudes-and-the-globalization-of-sports-contribute-significantly-to-the-success-rates-of-these-nations-in-the-field-of-olympic-swimming.">The distribution of Olympic swim medals among the United States, China, France has undergone dynamic changes over the past 50 years, driven by a complex interplay of factors. <u>We hypothesize there will be fluctuations in medal earning by the individual countries as variations in sports infrastructure, international cooperation, changes in rules and regulations, economic factors, cultural attitudes, and the globalization of sports contribute significantly to the success rates of these nations in the field of Olympic swimming.</u></h5>
+</section>
+<section id="research-question-2-rq2" class="level5">
+<h5 class="anchored" data-anchor-id="research-question-2-rq2"><strong>Research Question 2 (RQ2):</strong></h5>
+</section>
+<section id="the-mean-olympic-swim-times-for-100m-races-have-consistently-decreased-over-the-years-indicating-an-overall-improvement-in-performance.-we-hypothesize-that-the-rate-of-improvement-in-womens-100m-swim-times-has-surpassed-that-of-men-suggesting-a-discernible-trend-toward-greater-enhancement-in-womens-swimming-performance.-this-phenomenon-may-be-attributed-to-advancements-in-training-methodologies-tailored-for-female-athletes-heightened-focus-on-gender-specific-sports-science-and-broader-societal-shifts-towards-gender-equality-in-sports.-additionally-technological-innovations-including-advancements-in-swimsuit-design-and-pool-technologies-may-have-disproportionately-benefited-women-swimmers.-increased-international-competitiveness-alongside-augmented-support-and-investment-in-womens-sports-programs-likely-contribute-to-fostering-an-environment-conducive-to-accelerated-performance-improvements.-this-hypothesis-posits-that-the-observed-trends-are-not-merely-random-variations-but-indicative-of-systematic-changes-in-the-factors-influencing-swimming-performance." class="level5">
+<h5 class="anchored" data-anchor-id="the-mean-olympic-swim-times-for-100m-races-have-consistently-decreased-over-the-years-indicating-an-overall-improvement-in-performance.-we-hypothesize-that-the-rate-of-improvement-in-womens-100m-swim-times-has-surpassed-that-of-men-suggesting-a-discernible-trend-toward-greater-enhancement-in-womens-swimming-performance.-this-phenomenon-may-be-attributed-to-advancements-in-training-methodologies-tailored-for-female-athletes-heightened-focus-on-gender-specific-sports-science-and-broader-societal-shifts-towards-gender-equality-in-sports.-additionally-technological-innovations-including-advancements-in-swimsuit-design-and-pool-technologies-may-have-disproportionately-benefited-women-swimmers.-increased-international-competitiveness-alongside-augmented-support-and-investment-in-womens-sports-programs-likely-contribute-to-fostering-an-environment-conducive-to-accelerated-performance-improvements.-this-hypothesis-posits-that-the-observed-trends-are-not-merely-random-variations-but-indicative-of-systematic-changes-in-the-factors-influencing-swimming-performance.">The mean Olympic swim times for 100m races have consistently decreased over the years, indicating an overall improvement in performance. <u>We hypothesize that the rate of improvement in women’s 100m swim times has surpassed that of men, suggesting a discernible trend toward greater enhancement in women’s swimming performance.</u> This phenomenon may be attributed to advancements in training methodologies tailored for female athletes, heightened focus on gender-specific sports science, and broader societal shifts towards gender equality in sports. Additionally, technological innovations, including advancements in swimsuit design and pool technologies, may have disproportionately benefited women swimmers. Increased international competitiveness, alongside augmented support and investment in women’s sports programs, likely contribute to fostering an environment conducive to accelerated performance improvements. This hypothesis posits that the observed trends are not merely random variations but indicative of systematic changes in the factors influencing swimming performance.</h5>
+</section>
+</section>
+</section>
+<section id="methods" class="level2">
+<h2 class="anchored" data-anchor-id="methods">Methods</h2>
+<section id="this-data-set-was-obtained-from-kaggle.com-a-data-science-competition-platform-and-online-community-of-data-scientists-and-machine-learning-practitioners-under-google-llc.-the-data-set-titled-olympic-swimming-history-1912-to-2020-has-a-public-domain-license-indicating-it-has-no-copyright.-no-authors-names-were-listed-however-it-was-posted-to-the-site-by-the-user-data-science-donut.-the-data-set-is-comprised-of-10-columns-and-4359-observations.-the-codebook-is-as-follows" class="level5">
+<h5 class="anchored" data-anchor-id="this-data-set-was-obtained-from-kaggle.com-a-data-science-competition-platform-and-online-community-of-data-scientists-and-machine-learning-practitioners-under-google-llc.-the-data-set-titled-olympic-swimming-history-1912-to-2020-has-a-public-domain-license-indicating-it-has-no-copyright.-no-authors-names-were-listed-however-it-was-posted-to-the-site-by-the-user-data-science-donut.-the-data-set-is-comprised-of-10-columns-and-4359-observations.-the-codebook-is-as-follows">This data set was obtained from kaggle.com, a data science competition platform and online community of data scientists and machine learning practitioners under Google LLC. The data set, titled “Olympic Swimming History (1912 to 2020),” has a public domain license indicating it has no copyright. No authors’ names were listed, however, it was posted to the site by the user Data Science Donut. The data set is comprised of 10 columns and 4359 observations. The codebook is as follows:</h5>
+<table class="table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 88%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><h6 id="column" class="anchored">Column</h6></td>
+<td><h6 id="description" class="anchored">Description</h6></td>
+</tr>
+<tr class="even">
+<td><h6 id="location" class="anchored">Location</h6></td>
+<td><h6 id="hosting-city-of-the-olympics" class="anchored">Hosting city of the Olympics</h6></td>
+</tr>
+<tr class="odd">
+<td><h6 id="year" class="anchored">Year</h6></td>
+<td><h6 id="year-the-olympics-took-place" class="anchored">Year the Olympics took place</h6></td>
+</tr>
+<tr class="even">
+<td><h6 id="distance" class="anchored">Distance</h6></td>
+<td><h6 id="distance-in-meters-of-the-race.-relays-are-written-as-the-number-of-swimmers-by-the-distance-swam-by-one-swimmer-i.e.-4x200" class="anchored">Distance in meters of the race. Relays are written as the number of swimmers by the distance swam by one swimmer (I.e. 4x200)</h6></td>
+</tr>
+<tr class="odd">
+<td><h6 id="stroke" class="anchored">Stroke</h6></td>
+<td><h6 id="type-of-race-backstroke-breaststroke-butterfly-freestyle-medley-individual-medley" class="anchored">Type of race: backstroke, breaststroke, butterfly, freestyle, medley, individual medley</h6></td>
+</tr>
+<tr class="even">
+<td><h6 id="relay" class="anchored">Relay</h6></td>
+<td><h6 id="individual-1-relay" class="anchored">0 – individual, 1 – relay</h6></td>
+</tr>
+<tr class="odd">
+<td><h6 id="gender" class="anchored">Gender</h6></td>
+<td><h6 id="men-or-women" class="anchored">Men or Women</h6></td>
+</tr>
+<tr class="even">
+<td><h6 id="team" class="anchored">Team</h6></td>
+<td><h6 id="three-letter-country-code" class="anchored">Three letter country code</h6></td>
+</tr>
+<tr class="odd">
+<td><h6 id="athlete" class="anchored">Athlete</h6></td>
+<td><h6 id="name-of-athlete" class="anchored">Name of Athlete</h6></td>
+</tr>
+<tr class="even">
+<td><h6 id="results" class="anchored">Results</h6></td>
+<td><h6 id="time" class="anchored">Time</h6></td>
+</tr>
+<tr class="odd">
+<td><h6 id="rank" class="anchored">Rank</h6></td>
+<td><h6 id="did-not-startfinish-or-disqualified" class="anchored">0 – Did not start/finish or disqualified</h6>
+<h6 id="gold-medal" class="anchored">1 – gold medal</h6>
+<h6 id="silver-medal" class="anchored">2 - silver medal</h6>
+<h6 id="bronze-medal" class="anchored">3 – bronze medal</h6>
+<h6 id="no-medal" class="anchored">4 – no medal</h6>
+<h6 id="no-data" class="anchored">5- no data</h6></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="this-data-was-then-organized-and-examined-using-the-frequencies-of-distribution-to-analyze-trends-within-the-variables-of-interest.-specifically-frequency-distributions-were-looked-at-for-the-different-medals-obtained-by-specific-countries-the-genders-represented-men-and-women-and-the-results-of-the-races." class="level5">
+<h5 class="anchored" data-anchor-id="this-data-was-then-organized-and-examined-using-the-frequencies-of-distribution-to-analyze-trends-within-the-variables-of-interest.-specifically-frequency-distributions-were-looked-at-for-the-different-medals-obtained-by-specific-countries-the-genders-represented-men-and-women-and-the-results-of-the-races.">This data was then organized and examined using the frequencies of distribution to analyze trends within the variables of interest. Specifically, frequency distributions were looked at for the different medals obtained by specific countries, the genders represented (men and women), and the results of the races.</h5>
+</section>
+</section>
+<section id="results-1" class="level2">
+<h2 class="anchored" data-anchor-id="results-1">Results</h2>
+<section id="the-analysis-of-olympic-swimming-medals-earned-by-the-united-states-china-france-over-the-last-50-years-reveals-distinct-differences-in-the-performance-of-their-athletes-table-1-figure-1.-the-united-states-athletes-earned-115-gold-medals-105-silver-medals-and-75-bronze-medals.-for-china-their-athletes-took-home-14-gold-medals-16-silver-medals-and-9-bronze-medals.-lastly-frances-athletes-won-6-gold-medals-8-silver-medals-and-10-bronze-medals." class="level5">
+<h5 class="anchored" data-anchor-id="the-analysis-of-olympic-swimming-medals-earned-by-the-united-states-china-france-over-the-last-50-years-reveals-distinct-differences-in-the-performance-of-their-athletes-table-1-figure-1.-the-united-states-athletes-earned-115-gold-medals-105-silver-medals-and-75-bronze-medals.-for-china-their-athletes-took-home-14-gold-medals-16-silver-medals-and-9-bronze-medals.-lastly-frances-athletes-won-6-gold-medals-8-silver-medals-and-10-bronze-medals.">The analysis of Olympic swimming medals earned by the United States, China, France over the last 50 years reveals distinct differences in the performance of their athletes (Table 1, Figure 1). The United States’ athletes earned 115 gold medals 105 silver medals, and 75 bronze medals. For China, their athletes took home 14 gold medals, 16 silver medals, and 9 bronze medals. Lastly, France’s athletes won 6 gold medals, 8 silver medals, and 10 bronze medals.</h5>
+<div class="cell">
+<div class="cell-output-display">
+
+<div id="wfvbqqvyyx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wfvbqqvyyx table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#wfvbqqvyyx thead, #wfvbqqvyyx tbody, #wfvbqqvyyx tfoot, #wfvbqqvyyx tr, #wfvbqqvyyx td, #wfvbqqvyyx th {
+  border-style: none;
+}
+
+#wfvbqqvyyx p {
+  margin: 0;
+  padding: 0;
+}
+
+#wfvbqqvyyx .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#wfvbqqvyyx .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#wfvbqqvyyx .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#wfvbqqvyyx .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#wfvbqqvyyx .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wfvbqqvyyx .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wfvbqqvyyx .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wfvbqqvyyx .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#wfvbqqvyyx .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#wfvbqqvyyx .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#wfvbqqvyyx .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#wfvbqqvyyx .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#wfvbqqvyyx .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#wfvbqqvyyx .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#wfvbqqvyyx .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#wfvbqqvyyx .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#wfvbqqvyyx .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#wfvbqqvyyx .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#wfvbqqvyyx .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wfvbqqvyyx .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#wfvbqqvyyx .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#wfvbqqvyyx .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#wfvbqqvyyx .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wfvbqqvyyx .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#wfvbqqvyyx .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#wfvbqqvyyx .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wfvbqqvyyx .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wfvbqqvyyx .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#wfvbqqvyyx .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wfvbqqvyyx .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#wfvbqqvyyx .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wfvbqqvyyx .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wfvbqqvyyx .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wfvbqqvyyx .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wfvbqqvyyx .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wfvbqqvyyx .gt_left {
+  text-align: left;
+}
+
+#wfvbqqvyyx .gt_center {
+  text-align: center;
+}
+
+#wfvbqqvyyx .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#wfvbqqvyyx .gt_font_normal {
+  font-weight: normal;
+}
+
+#wfvbqqvyyx .gt_font_bold {
+  font-weight: bold;
+}
+
+#wfvbqqvyyx .gt_font_italic {
+  font-style: italic;
+}
+
+#wfvbqqvyyx .gt_super {
+  font-size: 65%;
+}
+
+#wfvbqqvyyx .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#wfvbqqvyyx .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#wfvbqqvyyx .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#wfvbqqvyyx .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#wfvbqqvyyx .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#wfvbqqvyyx .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#wfvbqqvyyx .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="">Table 1</td>
+    </tr>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Team">Team</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Gold Medals">Gold Medals</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Silver Medals">Silver Medals</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Bronze Medals">Bronze Medals</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="Team" class="gt_row gt_left">USA</td>
+<td headers="Gold Medals" class="gt_row gt_right">115</td>
+<td headers="Silver Medals" class="gt_row gt_right">105</td>
+<td headers="Bronze Medals" class="gt_row gt_right">75</td></tr>
+    <tr><td headers="Team" class="gt_row gt_left">CHN</td>
+<td headers="Gold Medals" class="gt_row gt_right">14</td>
+<td headers="Silver Medals" class="gt_row gt_right">16</td>
+<td headers="Bronze Medals" class="gt_row gt_right">9</td></tr>
+    <tr><td headers="Team" class="gt_row gt_left">FRA</td>
+<td headers="Gold Medals" class="gt_row gt_right">6</td>
+<td headers="Silver Medals" class="gt_row gt_right">8</td>
+<td headers="Bronze Medals" class="gt_row gt_right">10</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+<div class="cell-output-display">
+<p><img src="Final-Project-DJ-Clean-Data_files/figure-html/Side%20by%20side%20bar%20chart%20of%20medals-1.png" class="img-fluid" width="864"></p>
+</div>
+</div>
+</section>
+<section id="to-evaluate-our-hypothesis-positing-the-temporal-fluctuations-in-the-medal-counts-of-each-country-rq1-an-examination-of-the-total-number-of-medals-earned-by-each-country-was-examined-over-the-span-of-50-years-figure-2." class="level5">
+<h5 class="anchored" data-anchor-id="to-evaluate-our-hypothesis-positing-the-temporal-fluctuations-in-the-medal-counts-of-each-country-rq1-an-examination-of-the-total-number-of-medals-earned-by-each-country-was-examined-over-the-span-of-50-years-figure-2.">To evaluate our hypothesis positing the temporal fluctuations in the medal counts of each country (RQ1), an examination of the total number of medals earned by each country was examined over the span of 50 years (Figure 2).</h5>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Final-Project-DJ-Clean-Data_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="864"></p>
+</div>
+</div>
+</section>
+<section id="the-united-states-demonstrated-a-strong-and-consistent-dominance-in-olympic-swimming-across-the-time-frame-which-explains-the-large-number-of-total-medals-earned-by-this-country.-they-consistently-won-medals-in-every-olympics-with-the-exception-of-the-1980-olympics.-in-comparison-france-only-began-winning-medals-in-2004-and-has-not-earned-any-since-2012.-china-also-shows-a-small-but-consistent-earnings-of-medals-from-1992-to-the-most-recent-olympics-in-2020." class="level5">
+<h5 class="anchored" data-anchor-id="the-united-states-demonstrated-a-strong-and-consistent-dominance-in-olympic-swimming-across-the-time-frame-which-explains-the-large-number-of-total-medals-earned-by-this-country.-they-consistently-won-medals-in-every-olympics-with-the-exception-of-the-1980-olympics.-in-comparison-france-only-began-winning-medals-in-2004-and-has-not-earned-any-since-2012.-china-also-shows-a-small-but-consistent-earnings-of-medals-from-1992-to-the-most-recent-olympics-in-2020.">The United States demonstrated a strong and consistent dominance in Olympic swimming across the time frame, which explains the large number of total medals earned by this country. They consistently won medals in every Olympics, with the exception of the 1980 Olympics. In comparison, France only began winning medals in 2004 and has not earned any since 2012. China also shows a small but consistent earnings of medals from 1992 to the most recent Olympics in 2020.</h5>
+</section>
+<section id="to-evaluate-our-second-research-question-the-result-times-were-evaluated-across-all-100m-events-for-both-men-and-women." class="level5">
+<h5 class="anchored" data-anchor-id="to-evaluate-our-second-research-question-the-result-times-were-evaluated-across-all-100m-events-for-both-men-and-women.">To evaluate our second research question, the result times were evaluated across all 100m events for both men and women.</h5>
+</section>
+<section id="the-examination-of-womens-olympic-swim-times-across-multiple-years-reveals-a-compelling-narrative-of-continuous-improvement-in-athletic-performance-over-the-years-with-an-average-improvement-of-8.50-seconds-across-100m-events-figure-3.-the-data-illustrates-a-consistent-trend-of-decreasing-swim-times-indicating-advancements-in-training-methodologies-technological-innovations-and-the-overall-evolution-of-the-sport." class="level5">
+<h5 class="anchored" data-anchor-id="the-examination-of-womens-olympic-swim-times-across-multiple-years-reveals-a-compelling-narrative-of-continuous-improvement-in-athletic-performance-over-the-years-with-an-average-improvement-of-8.50-seconds-across-100m-events-figure-3.-the-data-illustrates-a-consistent-trend-of-decreasing-swim-times-indicating-advancements-in-training-methodologies-technological-innovations-and-the-overall-evolution-of-the-sport.">The examination of women’s Olympic swim times across multiple years reveals a compelling narrative of continuous improvement in athletic performance over the years, with an average improvement of 8.50 seconds across 100m events (Figure 3). The data illustrates a consistent trend of decreasing swim times, indicating advancements in training methodologies, technological innovations, and the overall evolution of the sport.</h5>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Final-Project-DJ-Clean-Data_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="864"></p>
+</div>
+</div>
+</section>
+<section id="the-examination-of-mens-olympic-swim-times-across-multiple-years-reveals-a-compelling-narrative-of-continuous-improvement-in-athletic-performance-over-the-years-with-an-average-improvement-of-6.25-seconds-across-100m-events-figure-4.-the-data-illustrates-a-consistent-trend-of-decreasing-swim-times-indicating-advancements-in-training-methodologies-technological-innovations-and-the-overall-evolution-of-the-sport." class="level5">
+<h5 class="anchored" data-anchor-id="the-examination-of-mens-olympic-swim-times-across-multiple-years-reveals-a-compelling-narrative-of-continuous-improvement-in-athletic-performance-over-the-years-with-an-average-improvement-of-6.25-seconds-across-100m-events-figure-4.-the-data-illustrates-a-consistent-trend-of-decreasing-swim-times-indicating-advancements-in-training-methodologies-technological-innovations-and-the-overall-evolution-of-the-sport.">The examination of men’s Olympic swim times across multiple years reveals a compelling narrative of continuous improvement in athletic performance over the years, with an average improvement of 6.25 seconds across 100m events (Figure 4). The data illustrates a consistent trend of decreasing swim times, indicating advancements in training methodologies, technological innovations, and the overall evolution of the sport.</h5>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Final-Project-DJ-Clean-Data_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="864"></p>
+</div>
+</div>
+</section>
+<section id="the-analysis-of-the-longitudinal-data-on-mens-and-womens-swim-times-in-the-100m-breaststroke-over-the-years-reveals-a-trend-of-continual-improvement-in-performance-for-both-genders.-however-the-standout-observation-is-the-notable-and-consistent-increase-in-womens-swim-times-at-12.3-surpassing-the-rate-of-improvement-seen-in-mens-times-of-10-figure-5." class="level5">
+<h5 class="anchored" data-anchor-id="the-analysis-of-the-longitudinal-data-on-mens-and-womens-swim-times-in-the-100m-breaststroke-over-the-years-reveals-a-trend-of-continual-improvement-in-performance-for-both-genders.-however-the-standout-observation-is-the-notable-and-consistent-increase-in-womens-swim-times-at-12.3-surpassing-the-rate-of-improvement-seen-in-mens-times-of-10-figure-5.">The analysis of the longitudinal data on men’s and women’s swim times in the 100m breaststroke over the years reveals a trend of continual improvement in performance for both genders. However, the standout observation is the notable and consistent increase in women’s swim times at 12.3%, surpassing the rate of improvement seen in men’s times of 10% (Figure 5).</h5>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Final-Project-DJ-Clean-Data_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="864"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="discussion" class="level2">
+<h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
+<section id="medal-earning-by-country" class="level4">
+<h4 class="anchored" data-anchor-id="medal-earning-by-country"><strong>Medal Earning by Country</strong></h4>
+<section id="the-distribution-of-olympic-swimming-medals-among-these-3-countries-can-by-influenced-by-a-variety-of-factors.-these-variables-include-historical-factors-cultural-attributes-economic-strength-and-investments-in-athlete-training-programs." class="level5">
+<h5 class="anchored" data-anchor-id="the-distribution-of-olympic-swimming-medals-among-these-3-countries-can-by-influenced-by-a-variety-of-factors.-these-variables-include-historical-factors-cultural-attributes-economic-strength-and-investments-in-athlete-training-programs.">The distribution of Olympic swimming medals among these 3 countries can by influenced by a variety of factors. These variables include historical factors, cultural attributes, economic strength, and investments in athlete training programs.</h5>
+</section>
+<section id="a-history-of-early-swimming-programs-play-an-important-role-in-a-countrys-success.-nations-that-realized-early-on-how-important-it-was-to-invest-in-infrastructure-and-training-programs-such-as-the-united-states-laid-the-groundwork-for-long-term-success.-countries-with-a-strong-sporting-legacy-may-also-benefit-from-an-ingrained-culture-that-nutures-athletic-talent.-a-countrys-talent-pipeline-and-overall-competitiveness-in-the-olympic-swimming-arena-are-influenced-by-the-prior-creation-of-youth-development-programs-coaching-efforts-and-competitive-swimming-leagues.-past-choices-and-expenditures-made-on-sports-infrastructure-such-as-building-first-rate-swimming-pools-and-training-centers-have-a-lasting-impact.-the-current-state-of-swimming-ability-in-each-nation-is-influenced-by-past-choices-made-about-the-importance-of-different-sports-how-resources-are-distributed-and-how-regulations-are-formulated." class="level5">
+<h5 class="anchored" data-anchor-id="a-history-of-early-swimming-programs-play-an-important-role-in-a-countrys-success.-nations-that-realized-early-on-how-important-it-was-to-invest-in-infrastructure-and-training-programs-such-as-the-united-states-laid-the-groundwork-for-long-term-success.-countries-with-a-strong-sporting-legacy-may-also-benefit-from-an-ingrained-culture-that-nutures-athletic-talent.-a-countrys-talent-pipeline-and-overall-competitiveness-in-the-olympic-swimming-arena-are-influenced-by-the-prior-creation-of-youth-development-programs-coaching-efforts-and-competitive-swimming-leagues.-past-choices-and-expenditures-made-on-sports-infrastructure-such-as-building-first-rate-swimming-pools-and-training-centers-have-a-lasting-impact.-the-current-state-of-swimming-ability-in-each-nation-is-influenced-by-past-choices-made-about-the-importance-of-different-sports-how-resources-are-distributed-and-how-regulations-are-formulated.">A history of early swimming programs play an important role in a country’s success. Nations that realized early on how important it was to invest in infrastructure and training programs, such as the United States, laid the groundwork for long-term success. Countries with a strong sporting legacy may also benefit from an ingrained culture that nutures athletic talent. A country’s talent pipeline and overall competitiveness in the Olympic swimming arena are influenced by the prior creation of youth development programs, coaching efforts, and competitive swimming leagues. Past choices and expenditures made on sports infrastructure, such as building first-rate swimming pools and training centers, have a lasting impact. The current state of swimming ability in each nation is influenced by past choices made about the importance of different sports, how resources are distributed, and how regulations are formulated.</h5>
+</section>
+<section id="a-countrys-economic-strength-and-the-governmental-policies-also-impact-a-countrys-success-in-the-olympic-sport-of-swimming.-a-more-robust-economy-such-as-those-found-in-the-united-states-and-china-allow-the-financial-means-to-invest-substantially-in-sports-programs-providing-a-competitve-edge-to-their-athletes.-factors-such-as-state-of-the-art-training-facilities-cutting-edge-sports-science-and-elite-coaching-personnel-all-give-athletes-a-greater-chance-for-success.-strong-economies-not-only-enable-the-development-of-athletes-but-also-promote-a-culture-of-sports-in-which-people-are-inspired-to-take-sports-such-as-swimming-seriously-and-see-it-as-a-potential-career-path.-supportive-policies-by-government-agencies-offer-financial-assistance-for-athletes-coaches-and-sports-facilities-allow-for-these-careers-to-be-possible." class="level5">
+<h5 class="anchored" data-anchor-id="a-countrys-economic-strength-and-the-governmental-policies-also-impact-a-countrys-success-in-the-olympic-sport-of-swimming.-a-more-robust-economy-such-as-those-found-in-the-united-states-and-china-allow-the-financial-means-to-invest-substantially-in-sports-programs-providing-a-competitve-edge-to-their-athletes.-factors-such-as-state-of-the-art-training-facilities-cutting-edge-sports-science-and-elite-coaching-personnel-all-give-athletes-a-greater-chance-for-success.-strong-economies-not-only-enable-the-development-of-athletes-but-also-promote-a-culture-of-sports-in-which-people-are-inspired-to-take-sports-such-as-swimming-seriously-and-see-it-as-a-potential-career-path.-supportive-policies-by-government-agencies-offer-financial-assistance-for-athletes-coaches-and-sports-facilities-allow-for-these-careers-to-be-possible.">A country’s economic strength and the governmental policies also impact a country’s success in the Olympic sport of swimming. A more robust economy, such as those found in the United States and China, allow the financial means to invest substantially in sports programs, providing a competitve edge to their athletes. Factors such as state-of-the-art training facilities, cutting edge sports science, and elite coaching personnel all give athletes a greater chance for success. Strong economies not only enable the development of athletes, but also promote a culture of sports in which people are inspired to take sports such as swimming seriously and see it as a potential career path. Supportive policies by government agencies offer financial assistance for athletes, coaches, and sports facilities allow for these careers to be possible.</h5>
+</section>
+<section id="population-size-and-demographics-also-may-play-a-part.-the-united-states-and-china-display-much-larger-populations-than-does-france-allowing-for-a-depth-and-diversity-in-the-talent-pool-of-available-athletes.-larger-populations-inherently-offer-a-broader-base-from-which-to-identify-and-nuture-athletic-talent.-additionally-access-to-training-programs-and-swimming-facilities-is-connected-to-demographics.-countries-where-a-greater-percentage-of-the-populace-has-access-to-training-facilities-and-swimming-pools-are-better-equipped-to-spot-and-develop-young-talent.-this-ties-back-into-the-previous-paragraph-discussing-economic-strength-and-policy-decisions-in-support-of-athletic-training." class="level5">
+<h5 class="anchored" data-anchor-id="population-size-and-demographics-also-may-play-a-part.-the-united-states-and-china-display-much-larger-populations-than-does-france-allowing-for-a-depth-and-diversity-in-the-talent-pool-of-available-athletes.-larger-populations-inherently-offer-a-broader-base-from-which-to-identify-and-nuture-athletic-talent.-additionally-access-to-training-programs-and-swimming-facilities-is-connected-to-demographics.-countries-where-a-greater-percentage-of-the-populace-has-access-to-training-facilities-and-swimming-pools-are-better-equipped-to-spot-and-develop-young-talent.-this-ties-back-into-the-previous-paragraph-discussing-economic-strength-and-policy-decisions-in-support-of-athletic-training.">Population size and demographics also may play a part. The United States and China display much larger populations than does France, allowing for a depth and diversity in the talent pool of available athletes. Larger populations inherently offer a broader base from which to identify and nuture athletic talent. Additionally, access to training programs and swimming facilities is connected to demographics. Countries where a greater percentage of the populace has access to training facilities and swimming pools are better equipped to spot and develop young talent. This ties back into the previous paragraph discussing economic strength and policy decisions in support of athletic training.</h5>
+</section>
+</section>
+<section id="average-finish-times-over-the-years" class="level4">
+<h4 class="anchored" data-anchor-id="average-finish-times-over-the-years"><strong>Average Finish Times Over the Years</strong></h4>
+<section id="the-examination-of-gold-medal-finish-times-in-100m-races-provides-valuable-insights-into-the-evolution-of-swimming-performance.-the-data-visualization-reveals-a-notable-improvement-in-finish-times-for-the-100m-backstroke-over-the-course-of-the-past-century.-however-understanding-the-multiple-factors-influencing-this-improvement-requires-a-comprehensive-investigation-into-various-aspects-of-the-sport." class="level5">
+<h5 class="anchored" data-anchor-id="the-examination-of-gold-medal-finish-times-in-100m-races-provides-valuable-insights-into-the-evolution-of-swimming-performance.-the-data-visualization-reveals-a-notable-improvement-in-finish-times-for-the-100m-backstroke-over-the-course-of-the-past-century.-however-understanding-the-multiple-factors-influencing-this-improvement-requires-a-comprehensive-investigation-into-various-aspects-of-the-sport.">The examination of gold medal finish times in 100m races provides valuable insights into the evolution of swimming performance. The data visualization reveals a notable improvement in finish times for the 100m backstroke over the course of the past century. However, understanding the multiple factors influencing this improvement requires a comprehensive investigation into various aspects of the sport.</h5>
+</section>
+<section id="the-data-indicates-that-the-rate-of-improvement-in-womens-100m-race-times-has-consistently-outpaced-that-of-their-male-counterparts-over-the-decades-unveiling-a-noteworthy-trend-of-accelerated-enhancement-in-womens-swimming-performance.-over-the-years-there-has-been-a-commendable-shift-in-attitudes-and-investments-towards-womens-athletics-marked-by-increased-visibility-recognition-and-funding.-greater-access-to-resources-training-facilities-and-coaching-expertise-may-contribute-to-the-observed-trend-empowering-women-swimmers-to-push-the-boundaries-of-their-performance.-additionally-the-changing-narrative-around-gender-equality-in-sports-has-fostered-a-sense-of-empowerment-and-motivation-among-female-athletes-potentially-translating-into-higher-levels-of-commitment-and-determination.-to-comprehensively-explore-the-role-of-societal-support-further-research-could-delve-into-specific-initiatives-policies-and-cultural-shifts-that-have-positively-impacted-womens-participation-and-success-in-swimming-thus-providing-a-more-nuanced-understanding-of-the-complex-interplay-between-societal-dynamics-and-athletic-achievement." class="level5">
+<h5 class="anchored" data-anchor-id="the-data-indicates-that-the-rate-of-improvement-in-womens-100m-race-times-has-consistently-outpaced-that-of-their-male-counterparts-over-the-decades-unveiling-a-noteworthy-trend-of-accelerated-enhancement-in-womens-swimming-performance.-over-the-years-there-has-been-a-commendable-shift-in-attitudes-and-investments-towards-womens-athletics-marked-by-increased-visibility-recognition-and-funding.-greater-access-to-resources-training-facilities-and-coaching-expertise-may-contribute-to-the-observed-trend-empowering-women-swimmers-to-push-the-boundaries-of-their-performance.-additionally-the-changing-narrative-around-gender-equality-in-sports-has-fostered-a-sense-of-empowerment-and-motivation-among-female-athletes-potentially-translating-into-higher-levels-of-commitment-and-determination.-to-comprehensively-explore-the-role-of-societal-support-further-research-could-delve-into-specific-initiatives-policies-and-cultural-shifts-that-have-positively-impacted-womens-participation-and-success-in-swimming-thus-providing-a-more-nuanced-understanding-of-the-complex-interplay-between-societal-dynamics-and-athletic-achievement.">The data indicates that the rate of improvement in women’s 100m race times has consistently outpaced that of their male counterparts over the decades, unveiling a noteworthy trend of accelerated enhancement in women’s swimming performance. Over the years, there has been a commendable shift in attitudes and investments towards women’s athletics, marked by increased visibility, recognition, and funding. Greater access to resources, training facilities, and coaching expertise may contribute to the observed trend, empowering women swimmers to push the boundaries of their performance. Additionally, the changing narrative around gender equality in sports has fostered a sense of empowerment and motivation among female athletes, potentially translating into higher levels of commitment and determination. To comprehensively explore the role of societal support, further research could delve into specific initiatives, policies, and cultural shifts that have positively impacted women’s participation and success in swimming, thus providing a more nuanced understanding of the complex interplay between societal dynamics and athletic achievement.</h5>
+</section>
+<section id="while-the-reasons-behind-the-phenomenon-of-improved-performance-in-both-female-and-male-swimmers-warrant-further-investigation-it-prompts-a-reevaluation-of-training-methodologies-gender-specific-physiological-factors-and-societal-influences-that-may-contribute-to-the-observed-divergence-in-performance-trends-between-male-and-female-athletes.-understanding-and-acknowledging-this-distinctive-gender-specific-nuance-not-only-contribute-to-the-nuanced-narrative-of-competitive-swimming-but-also-underline-the-importance-of-tailored-approaches-in-optimizing-athletic-potential-for-both-men-and-women-in-the-realm-of-100m-races." class="level5">
+<h5 class="anchored" data-anchor-id="while-the-reasons-behind-the-phenomenon-of-improved-performance-in-both-female-and-male-swimmers-warrant-further-investigation-it-prompts-a-reevaluation-of-training-methodologies-gender-specific-physiological-factors-and-societal-influences-that-may-contribute-to-the-observed-divergence-in-performance-trends-between-male-and-female-athletes.-understanding-and-acknowledging-this-distinctive-gender-specific-nuance-not-only-contribute-to-the-nuanced-narrative-of-competitive-swimming-but-also-underline-the-importance-of-tailored-approaches-in-optimizing-athletic-potential-for-both-men-and-women-in-the-realm-of-100m-races.">While the reasons behind the phenomenon of improved performance in both female and male swimmers warrant further investigation, it prompts a reevaluation of training methodologies, gender-specific physiological factors, and societal influences that may contribute to the observed divergence in performance trends between male and female athletes. Understanding and acknowledging this distinctive gender-specific nuance not only contribute to the nuanced narrative of competitive swimming but also underline the importance of tailored approaches in optimizing athletic potential for both men and women in the realm of 100m races.</h5>
+</section>
+<section id="one-possible-contributing-factor-in-the-of-improved-performance-in-both-female-and-male-swimmers-could-be-advancements-in-training-techniques.-over-the-years-there-have-been-significant-developments-in-sports-science-coaching-methodologies-and-training-regimens.-swimmers-may-now-benefit-from-more-sophisticated-and-individualized-training-programs-tailored-to-enhance-specific-aspects-of-their-performance-such-as-strength-technique-and-endurance.-investigating-the-correlation-between-changes-in-training-methods-and-the-observed-improvements-in-finish-times-could-provide-crucial-insights-into-the-dynamic-nature-of-competitive-swimming." class="level5">
+<h5 class="anchored" data-anchor-id="one-possible-contributing-factor-in-the-of-improved-performance-in-both-female-and-male-swimmers-could-be-advancements-in-training-techniques.-over-the-years-there-have-been-significant-developments-in-sports-science-coaching-methodologies-and-training-regimens.-swimmers-may-now-benefit-from-more-sophisticated-and-individualized-training-programs-tailored-to-enhance-specific-aspects-of-their-performance-such-as-strength-technique-and-endurance.-investigating-the-correlation-between-changes-in-training-methods-and-the-observed-improvements-in-finish-times-could-provide-crucial-insights-into-the-dynamic-nature-of-competitive-swimming.">One possible contributing factor in the of improved performance in both female and male swimmers could be advancements in training techniques. Over the years, there have been significant developments in sports science, coaching methodologies, and training regimens. Swimmers may now benefit from more sophisticated and individualized training programs, tailored to enhance specific aspects of their performance such as strength, technique, and endurance. Investigating the correlation between changes in training methods and the observed improvements in finish times could provide crucial insights into the dynamic nature of competitive swimming.</h5>
+</section>
+<section id="furthermore-changes-in-nutritional-knowledge-and-dietary-practices-could-contribute-to-the-improved-athletic-performance-witnessed-in-100m-backstroke-races.-the-role-of-proper-nutrition-in-optimizing-energy-levels-recovery-and-overall-physical-well-being-is-a-crucial-aspect-of-modern-sports-training.-investigating-how-nutritional-strategies-have-evolved-within-the-swimming-community-may-reveal-key-insights-into-the-factors-influencing-the-observed-trends-in-finish-times." class="level5">
+<h5 class="anchored" data-anchor-id="furthermore-changes-in-nutritional-knowledge-and-dietary-practices-could-contribute-to-the-improved-athletic-performance-witnessed-in-100m-backstroke-races.-the-role-of-proper-nutrition-in-optimizing-energy-levels-recovery-and-overall-physical-well-being-is-a-crucial-aspect-of-modern-sports-training.-investigating-how-nutritional-strategies-have-evolved-within-the-swimming-community-may-reveal-key-insights-into-the-factors-influencing-the-observed-trends-in-finish-times.">Furthermore, changes in nutritional knowledge and dietary practices could contribute to the improved athletic performance witnessed in 100m backstroke races. The role of proper nutrition in optimizing energy levels, recovery, and overall physical well-being is a crucial aspect of modern sports training. Investigating how nutritional strategies have evolved within the swimming community may reveal key insights into the factors influencing the observed trends in finish times.</h5>
+</section>
+<section id="to-draw-more-concrete-conclusions-about-the-reasons-behind-the-improvement-in-100m-backstroke-finish-times-future-research-should-employ-a-multidisciplinary-approach.-collaboration-between-sports-scientists-coaches-nutritionists-and-athletes-could-provide-a-holistic-understanding-of-the-complex-interplay-of-factors-shaping-the-landscape-of-competitive-swimming.-by-delving-deeper-into-the-specificities-of-training-regimens-technological-influences-and-nutritional-practices-we-can-better-understand-variables-contributing-to-the-observed-trends-in-gold-medal-finish-times-over-the-years." class="level5">
+<h5 class="anchored" data-anchor-id="to-draw-more-concrete-conclusions-about-the-reasons-behind-the-improvement-in-100m-backstroke-finish-times-future-research-should-employ-a-multidisciplinary-approach.-collaboration-between-sports-scientists-coaches-nutritionists-and-athletes-could-provide-a-holistic-understanding-of-the-complex-interplay-of-factors-shaping-the-landscape-of-competitive-swimming.-by-delving-deeper-into-the-specificities-of-training-regimens-technological-influences-and-nutritional-practices-we-can-better-understand-variables-contributing-to-the-observed-trends-in-gold-medal-finish-times-over-the-years.">To draw more concrete conclusions about the reasons behind the improvement in 100m backstroke finish times, future research should employ a multidisciplinary approach. Collaboration between sports scientists, coaches, nutritionists, and athletes could provide a holistic understanding of the complex interplay of factors shaping the landscape of competitive swimming. By delving deeper into the specificities of training regimens, technological influences, and nutritional practices, we can better understand variables contributing to the observed trends in gold medal finish times over the years.</h5>
+</section>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<section id="an-examination-of-swimming-performance-at-the-olympics-over-the-previous-fifty-years-demonstrates-the-intricate-interactions-between-various-elements-that-influence-a-countrys-performance-in-the-sport.-china-has-a-smaller-but-steady-pattern-of-medal-earnings-while-the-united-states-consistently-dominates-the-olympic-games-by-winning-a-significant-number-of-medals.-in-contrast-france-started-winning-medals-later-and-has-experienced-performance-fluctuations." class="level5">
+<h5 class="anchored" data-anchor-id="an-examination-of-swimming-performance-at-the-olympics-over-the-previous-fifty-years-demonstrates-the-intricate-interactions-between-various-elements-that-influence-a-countrys-performance-in-the-sport.-china-has-a-smaller-but-steady-pattern-of-medal-earnings-while-the-united-states-consistently-dominates-the-olympic-games-by-winning-a-significant-number-of-medals.-in-contrast-france-started-winning-medals-later-and-has-experienced-performance-fluctuations.">An examination of swimming performance at the Olympics over the previous fifty years demonstrates the intricate interactions between various elements that influence a country’s performance in the sport. China has a smaller but steady pattern of medal earnings, while the United States consistently dominates the Olympic Games by winning a significant number of medals. In contrast, France started winning medals later and has experienced performance fluctuations.</h5>
+</section>
+<section id="historical-factors-including-a-nations-sporting-legacy-early-investments-in-swimming-programs-and-a-culture-that-nurtures-athletic-talent-play-a-crucial-role-in-shaping-a-countrys-success.-the-economic-strength-of-a-nation-and-supportive-government-policies-further-impact-its-ability-to-invest-in-sports-programs-providing-athletes-with-the-necessary-resources-and-infrastructure-for-success.-population-size-and-demographics-also-contribute-with-larger-populations-offering-a-broader-talent-pool-and-greater-diversity-in-available-athletes." class="level5">
+<h5 class="anchored" data-anchor-id="historical-factors-including-a-nations-sporting-legacy-early-investments-in-swimming-programs-and-a-culture-that-nurtures-athletic-talent-play-a-crucial-role-in-shaping-a-countrys-success.-the-economic-strength-of-a-nation-and-supportive-government-policies-further-impact-its-ability-to-invest-in-sports-programs-providing-athletes-with-the-necessary-resources-and-infrastructure-for-success.-population-size-and-demographics-also-contribute-with-larger-populations-offering-a-broader-talent-pool-and-greater-diversity-in-available-athletes.">Historical factors, including a nation’s sporting legacy, early investments in swimming programs, and a culture that nurtures athletic talent, play a crucial role in shaping a country’s success. The economic strength of a nation and supportive government policies further impact its ability to invest in sports programs, providing athletes with the necessary resources and infrastructure for success. Population size and demographics also contribute, with larger populations offering a broader talent pool and greater diversity in available athletes.</h5>
+</section>
+<section id="the-examination-of-average-finish-times-in-100m-backstroke-races-reveals-a-significant-improvement-in-performance-over-the-years-with-women-consistently-outpacing-men-in-the-rate-of-improvement.-this-trend-reflects-changing-attitudes-increased-visibility-and-enhanced-support-for-women-in-sports.-factors-such-as-advancements-in-training-techniques-technology-and-nutrition-may-contribute-to-the-observed-improvements-in-performance." class="level5">
+<h5 class="anchored" data-anchor-id="the-examination-of-average-finish-times-in-100m-backstroke-races-reveals-a-significant-improvement-in-performance-over-the-years-with-women-consistently-outpacing-men-in-the-rate-of-improvement.-this-trend-reflects-changing-attitudes-increased-visibility-and-enhanced-support-for-women-in-sports.-factors-such-as-advancements-in-training-techniques-technology-and-nutrition-may-contribute-to-the-observed-improvements-in-performance.">The examination of average finish times in 100m backstroke races reveals a significant improvement in performance over the years, with women consistently outpacing men in the rate of improvement. This trend reflects changing attitudes, increased visibility, and enhanced support for women in sports. Factors such as advancements in training techniques, technology, and nutrition may contribute to the observed improvements in performance.</h5>
+</section>
+<section id="further-multidisciplinary-research-is-warranted-to-comprehensively-understand-these-trends.-collaboration-between-sports-scientists-coaches-nutritionists-and-athletes-can-provide-a-more-complete-understanding-of-the-various-factors-influencing-the-sport-of-competitive-swimming.-by-examining-deeper-the-training-regimens-technological-influences-and-nutritional-practices-we-can-gain-valuable-insights-into-the-nuanced-reasons-behind-the-observed-trends-in-olympic-swimming-performance-over-the-last-half-century." class="level5">
+<h5 class="anchored" data-anchor-id="further-multidisciplinary-research-is-warranted-to-comprehensively-understand-these-trends.-collaboration-between-sports-scientists-coaches-nutritionists-and-athletes-can-provide-a-more-complete-understanding-of-the-various-factors-influencing-the-sport-of-competitive-swimming.-by-examining-deeper-the-training-regimens-technological-influences-and-nutritional-practices-we-can-gain-valuable-insights-into-the-nuanced-reasons-behind-the-observed-trends-in-olympic-swimming-performance-over-the-last-half-century.">Further multidisciplinary research is warranted to comprehensively understand these trends. Collaboration between sports scientists, coaches, nutritionists, and athletes can provide a more complete understanding of the various factors influencing the sport of competitive swimming. By examining deeper the training regimens, technological influences, and nutritional practices, we can gain valuable insights into the nuanced reasons behind the observed trends in Olympic swimming performance over the last half-century.</h5>
+</section>
+</section>
+<section id="references" class="level2 unnumbered">
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-arnold2021" class="csl-entry" role="listitem">
+Arnold, Jeffrey B. 2021. <em>Ggthemes: Extra Themes, Scales and Geoms for ’Ggplot2’</em>. <a href="https://CRAN.R-project.org/package=ggthemes">https://CRAN.R-project.org/package=ggthemes</a>.
+</div>
+<div id="ref-chunhong2023" class="csl-entry" role="listitem">
+Chan, Chung-hong, Thomas J. Leeper, Jason Becker, and David Schoch. 2023. <em>Rio: A Swiss-Army Knife for Data File i/o</em>. <a href="https://cran.r-project.org/package=rio">https://cran.r-project.org/package=rio</a>.
+</div>
+<div id="ref-firke2023" class="csl-entry" role="listitem">
+Firke, Sam. 2023. <em>Janitor: Simple Tools for Examining and Cleaning Dirty Data</em>. <a href="https://CRAN.R-project.org/package=janitor">https://CRAN.R-project.org/package=janitor</a>.
+</div>
+<div id="ref-fone2022effect" class="csl-entry" role="listitem">
+Fone, Line, and Roland van den Tillaar. 2022. <span>“Effect of Different Types of Strength Training on Swimming Performance in Competitive Swimmers: A Systematic Review.”</span> <em>Sports Medicine-Open</em> 8 (1): 19.
+</div>
+<div id="ref-iannone2023" class="csl-entry" role="listitem">
+Iannone, Richard, Joe Cheng, Barret Schloerke, Ellis Hughes, Alexandra Lauer, and JooYoung Seo. 2023. <em>Gt: Easily Create Presentation-Ready Display Tables</em>. <a href="https://CRAN.R-project.org/package=gt">https://CRAN.R-project.org/package=gt</a>.
+</div>
+<div id="ref-kirill2020" class="csl-entry" role="listitem">
+Müller, Kirill. 2020. <em>Here: A Simpler Way to Find Your Files</em>. <a href="https://CRAN.R-project.org/package=here">https://CRAN.R-project.org/package=here</a>.
+</div>
+<div id="ref-r2023" class="csl-entry" role="listitem">
+R Core Team. 2023. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+<div id="ref-tcha2003reconsidering" class="csl-entry" role="listitem">
+Tcha, MoonJoong, and Valeri Pershin. 2003. <span>“Reconsidering Performance at the Summer Olympics and Revealed Comparative Advantage.”</span> <em>Journal of Sports Economics</em> 4 (3): 216–39. <a href="https://doi.org/10.1177/1527002503251636">https://doi.org/10.1177/1527002503251636</a>.
+</div>
+<div id="ref-wickham2016" class="csl-entry" role="listitem">
+Wickham, Hadley. 2016. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York. <a href="https://ggplot2.tidyverse.org">https://ggplot2.tidyverse.org</a>.
+</div>
+<div id="ref-wickham2019" class="csl-entry" role="listitem">
+Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. <span>“Welcome to the <span class="nocase">tidyverse</span>.”</span> <em>Journal of Open Source Software</em> 4 (43): 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
+</div>
+<div id="ref-xie2023" class="csl-entry" role="listitem">
+Xie, Yihui. 2023. <em>Knitr: A General-Purpose Package for Dynamic Report Generation in r</em>. <a href="https://yihui.org/knitr/">https://yihui.org/knitr/</a>.
+</div>
+<div id="ref-yutani2022" class="csl-entry" role="listitem">
+Yutani, Hiroaki. 2022. <em>Gghighlight: Highlight Lines and Points in ’Ggplot2’</em>. <a href="https://CRAN.R-project.org/package=gghighlight">https://CRAN.R-project.org/package=gghighlight</a>.
+</div>
+</div></section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

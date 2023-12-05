@@ -1,12 +1,12 @@
 ---
-title: "Final Project"
+title: "Final Project - The Evolution: A half century of Olympic swimming analysis (1970-2020)"
 author: "Danielle Jones & Katie Perez"
 format:
   html:
     highlight-style: tango
     toc: true
     toc-title: Table of Contents
-    toc-depth: 5
+    toc-depth: 3
     code-fold: true
     codesummary: "Show the code"
 syntax: tango
@@ -18,11 +18,14 @@ fig-width: 9
 fig-height: 7
 bibliography: references.bib
 link-citations: true
+nocite: '@*'
 ---
+
 ```{r}
 #| label: load-packages
 #| include: false
 #| results: hide
+#| echo: false
 library(here)
 library(rio)
 library(tidyverse)
@@ -31,12 +34,15 @@ library(ggthemes)
 library(gghighlight)
 library(tidyr)
 library(ggplot2)
+library(knitr)
+library(gt)
 ```
 
 ```{r}
 #| label: load-data
-#| include: true
+#| include: false
 #| results: hide
+#| echo: false
 here("data", "Olympic_Swimming_Results_1912to2020.csv")
 
 olyswim <- read_csv(here("data", "Olympic_Swimming_Results_1912to2020.csv")) %>%
@@ -44,8 +50,11 @@ olyswim <- read_csv(here("data", "Olympic_Swimming_Results_1912to2020.csv")) %>%
   clean_names()
 ```
 
-# Cleaning/organizing data
 ```{r}
+#| label: Cleaning and organizing the data
+#| include: false
+#| results: hide
+#| echo: false
 olyswim <- olyswim %>%
   filter(year >= 1969, year <=2020,
          relay == 0, rank != 0, rank !=4, rank !=5) %>%
@@ -64,8 +73,11 @@ olyswim <- olyswim %>%
          results_sec = as.numeric(results_sec))
 ```
 
-# Creating gender and stroke dataframe
 ```{r}
+#| label: Creating gender and stroke dataframe
+#| #| include: false
+#| results: hide
+#| echo: false
 olyswimgenderstroke <- olyswim %>%
   group_by(gender, stroke) %>%
   summarise(mean_time = mean(results_sec))
@@ -73,319 +85,120 @@ olyswimgenderstroke <- olyswim %>%
 summarize(olyswimgenderstroke)
 ```
 
-# Creating wide dataframe
 ```{r}
+#| label: Creating wide dataframe
+#| #| include: false
+#| results: hide
+#| echo: false
 olyswim_genderwide <- olyswim %>%
   pivot_wider(
   names_from = gender, 
   values_from = athlete
   )
+
+threecountries <- c("United States", "China", "France") 
 ```
 
-## Attempting to pivot_longer. I didn't see a way to pivot the data we are working with, so I chose to make a subset (small_team_data)and make it messy and then pivot_longer. I have achieved messy, but now I'm having trouble cleaning the mess. Insights and suggestings are welcome.
+## Abstract
+##### This research paper explores the intricate web of Olympic swimming events over 50 years (1969-2020), unraveling trends in medal distributions among countries and analyzing shifts in finish times across various competitions. The study focuses on the performance of the United States, China, and France. Additionally, the investigation delves into the gold medal Olympic swim times, particularly in the highly competitive 100m races. The dataset we analyzed was obtained from Kaggle.com, comprising 10 columns and 4359 observations, detailing Olympic swimming events, including distance, stroke, gender, team, athlete names, results, and medals. We created a subset of this data to focus on the years 1912 to 2020. Our hypotheses explore the changes in distribution of Olympic swim medals among the United States, China, and France as well as in improvement in race times, specifically the 100m events. The United States consistently dominated medal earning. China and France demonstrated smaller but consistent performances over specific periods. Additionally, we examined gold medal finish times in 100m races revealing a significant improvement over the time period. This analysis provides insights into the evolution of Olympic swimming, covering medal distributions and trends in finish times. The observed gender-specific nuance in performance trends prompts a reevaluation of training methodologies, technological influences, and societal factors shaping the landscape of competitive swimming. Further multidisciplinary research is recommended to deepen our understanding of these trends and their underlying causes. 
+
+
+## Introduction
+
+##### Olympic swimming stands as a testament to the pursuit of excellence, showcasing the culmination of athleticism, dedication, and technological advancements over the past 50 years. This research paper delves into the detailed web of Olympic swimming events, examining medal distributions among countries and discerning trends in finish times across various competitions from 1969 to 2020.
+
+##### A key focus of our analysis centers on the shifts in the distribution of Olympic swim medals among the nations of `r threecountries` over a span of 50 years. The hypothesis guiding this investigation suggests that changes in training paradigms, the evolution of talent pools, and technological innovations may have contributed to fluctuations in the total number of medals clinched by each of these countries [@tcha2003reconsidering; @fone2022effect]. This investigation seeks to shed light on the nuanced landscape of success within the realm of Olympic swimming.
+
+##### Moreover, our scrutiny extends to the mean Olympic swim times, particularly in the highly competitive 100m races. A consistent downward trend in these finish times unfolds, suggesting an ongoing improvement in overall performance. Intriguingly, our findings reveal a distinctive gender-specific nuance---the rate of improvement in women's 100m race times has outpaced that of men, signaling a noteworthy trend of greater enhancement in women's swimming performance over the decades.
+
+##### Our aim is to explore and gain some understanding of the sport's trajectory and evolution. By unraveling the intricate patterns woven into the fabric of Olympic swimming events, we aim to contribute valuable insights to both the sports community and enthusiasts alike, fostering a deeper appreciation for the evolution of excellence in the aquatic arena.
+
+### **Research Questions**
+
+##### **Research Question 1 (RQ1):**
+
+##### The distribution of Olympic swim medals among the `r threecountries` has undergone dynamic changes over the past 50 years, driven by a complex interplay of factors. [We hypothesize there will be fluctuations in medal earning by the individual countries as variations in sports infrastructure, international cooperation, changes in rules and regulations, economic factors, cultural attitudes, and the globalization of sports contribute significantly to the success rates of these nations in the field of Olympic swimming.]{.underline}
+
+##### **Research Question 2 (RQ2):**
+
+##### The mean Olympic swim times for 100m races have consistently decreased over the years, indicating an overall improvement in performance. [We hypothesize that the rate of improvement in women's 100m swim times has surpassed that of men, suggesting a discernible trend toward greater enhancement in women's swimming performance.]{.underline} This phenomenon may be attributed to advancements in training methodologies tailored for female athletes, heightened focus on gender-specific sports science, and broader societal shifts towards gender equality in sports. Additionally, technological innovations, including advancements in swimsuit design and pool technologies, may have disproportionately benefited women swimmers. Increased international competitiveness, alongside augmented support and investment in women's sports programs, likely contribute to fostering an environment conducive to accelerated performance improvements. This hypothesis posits that the observed trends are not merely random variations but indicative of systematic changes in the factors influencing swimming performance.
+
+## Methods
+
+##### This data set was obtained from kaggle.com, a data science competition platform and online community of data scientists and machine learning practitioners under Google LLC. The data set, titled "Olympic Swimming History (1912 to 2020)," has a public domain license indicating it has no copyright. No authors' names were listed, however, it was posted to the site by the user Data Science Donut. The data set is comprised of 10 columns and 4359 observations. The codebook is as follows:
+
++-----------------+--------------------------------------------------------------------------------------------------------------------------------------+
+| ###### Column   | ###### Description                                                                                                                   |
++-----------------+--------------------------------------------------------------------------------------------------------------------------------------+
+| ###### Location | ###### Hosting city of the Olympics                                                                                                  |
++-----------------+--------------------------------------------------------------------------------------------------------------------------------------+
+| ###### Year     | ###### Year the Olympics took place                                                                                                  |
++-----------------+--------------------------------------------------------------------------------------------------------------------------------------+
+| ###### Distance | ###### Distance in meters of the race. Relays are written as the number of swimmers by the distance swam by one swimmer (I.e. 4x200) |
++-----------------+--------------------------------------------------------------------------------------------------------------------------------------+
+| ###### Stroke   | ###### Type of race: backstroke, breaststroke, butterfly, freestyle, medley, individual medley                                       |
++-----------------+--------------------------------------------------------------------------------------------------------------------------------------+
+| ###### Relay    | ###### 0 -- individual, 1 -- relay                                                                                                   |
++-----------------+--------------------------------------------------------------------------------------------------------------------------------------+
+| ###### Gender   | ###### Men or Women                                                                                                                  |
++-----------------+--------------------------------------------------------------------------------------------------------------------------------------+
+| ###### Team     | ###### Three letter country code                                                                                                     |
++-----------------+--------------------------------------------------------------------------------------------------------------------------------------+
+| ###### Athlete  | ###### Name of Athlete                                                                                                               |
++-----------------+--------------------------------------------------------------------------------------------------------------------------------------+
+| ###### Results  | ###### Time                                                                                                                          |
++-----------------+--------------------------------------------------------------------------------------------------------------------------------------+
+| ###### Rank     | ###### 0 -- Did not start/finish or disqualified                                                                                     |
+|                 |                                                                                                                                      |
+|                 | ###### 1 -- gold medal                                                                                                               |
+|                 |                                                                                                                                      |
+|                 | ###### 2 - silver medal                                                                                                              |
+|                 |                                                                                                                                      |
+|                 | ###### 3 -- bronze medal                                                                                                             |
+|                 |                                                                                                                                      |
+|                 | ###### 4 -- no medal                                                                                                                 |
+|                 |                                                                                                                                      |
+|                 | ###### 5- no data                                                                                                                    |
++-----------------+--------------------------------------------------------------------------------------------------------------------------------------+
+
+##### This data was then organized and examined using the frequencies of distribution to analyze trends within the variables of interest. Specifically, frequency distributions were looked at for the different medals obtained by specific countries, the genders represented (men and women), and the results of the races.
+
+## Results
+
+##### The analysis of Olympic swimming medals earned by the `r threecountries` over the last 50 years reveals distinct differences in the performance of their athletes (Table 1, Figure 1). The United States' athletes earned 115 gold medals 105 silver medals, and 75 bronze medals. For China, their athletes took home 14 gold medals, 16 silver medals, and 9 bronze medals. Lastly, France's athletes won 6 gold medals, 8 silver medals, and 10 bronze medals.
 
 ```{r}
-#small_team_data <- olyswim %>% 
-  filter( distance_in_meters =="100m"|gender == "women") %>% 
-  select(year, stroke, team, rank) 
+#| label: Creating smaller datasets
+#| include: false
+#| results: hide
+#| echo: false
 
-#wide_data <- pivot_wider(small_team_data, names_from = team, values_from = rank)
-
-#long_data <- pivot_longer(wide_data, cols == "USA"| cols == "ROC", names_to = "time", values_to = "value")
-```
-
-## Visualize the data options
-
-### graph 1
-
-Observations: why is there no value for the men's backstroke? Perhaps because it is so small? Do I adjust the y scale to see the backstroke point? Interesting that the men's times are slower in the freestyle and the breaststroke.
-
-```{r}
-ggplot(olyswimgenderstroke, aes(gender, mean_time)) +
-  geom_point(aes(color = stroke))
-```
-
-### graph 2
-
-This graph does not appear to be useful.I was hoping to visualize the number medals each team won each year. If I look at one stroke with one length, this might work. Then the research question could be which of these three teams earned the greatest number of medals each year in the "100m backstroke".
-
-```{r}
-ggplot(small_team_data, aes(year, rank)) + 
-geom_col(aes(fill = team),
-             position = "dodge")
-### graph 3
-# I would like to visualize using facet wrap for each country. It would be more interesting to have top speed (least time) for each stroke. Will need to select one distance for each stroke. Points for each stroke top time. Include a smooth line to observe an increase or decease in medaling times for each country. I would assume they would all increase.
-ggplot(small_team_data, aes(year, body_mass_g)) + 
-  geom_point() +
-  geom_smooth() +
-  facet_wrap(~species)
-```
-
-### subseting data to create a visual of USA women.
-
-Potential research question: have the US women increased their speed in the 100m over the years? I think I might need to group by stroke and then select the slowest time to capture the fastest usa female swimmer each year and view the color of line by the different stroke. Also, there are a variety of lengths for each stroke. Consider flitering for only 100m. The problem I see with the graph is that it will gloss over the missing data, the years when the USA women did not place in the top 3.
-
-```{r}
-
-
-usa_women <- olyswim %>% filter(team == "USA", gender == "Women")
-
-ggplot(usa_women, aes(year, results, color = stroke)) +
-  geom_line() 
-```
-
-# Gold medals by country
-```{r}
 gold_country <- olyswim %>%
   filter(rank == 1) %>%
   group_by(team) %>%
   summarise(num_gold_medals = n()) %>%
   arrange(desc(num_gold_medals))
 
-country_colors <- c("USA" = "#2fc558", "CHN" = "#e92b3e", "FRA" = "#2c9bf1")
-
-gold_plot1 <- gold_country %>%
-  mutate(team = factor(gold_country$team, 
-                            levels = c("USA", "CHN", "FRA"),
-                            labels = c("United States", "China", "France"))) %>%
-  ggplot(aes(x = team, y = num_gold_medals, fill = team)) + 
-  geom_bar(stat = "identity", color = "white", size = 0.5) +
-  geom_text(aes(label = num_gold_medals), 
-            position = position_stack(vjust = 0.5), 
-            color = "white", 
-            size = 3) +
-  labs(title = "Gold Medals by Country 1972 - 2020",
-       subtitle = "Subset by United States, China, and France",
-       x = "Country",
-       y = "Number of Gold Medals",
-       fill = "Country") +
-  theme_minimal()
-
-gold_plot1
-
-gold_plot_piechart <- gold_country %>%
-  mutate(team = factor(team,
-                        levels = c("USA",
-                                   "CHN",
-                                   "FRA"))) %>%
-  ggplot(aes(x = "", y = num_gold_medals, fill = team)) +
-  geom_bar(stat = "identity", width = 1) +
-  coord_polar(theta = "y") +
-  geom_text(aes(label = num_gold_medals), 
-            position = position_stack(vjust = 0.5), 
-            color = "white", 
-            size = 3) +
-  labs(title = "Gold Medals by Country 1972 - 2020",
-       subtitle = "Subset by United States, China, and France",
-       x = NULL,
-       y = NULL,
-       fill = "Country") +
-  theme_void() +
-  theme(legend.position = "left") +
-  scale_fill_manual(values = country_colors,
-                    breaks = c("USA", "CHN", "FRA"),
-                    labels = c("United States", "China", "France"))
-gold_plot_piechart
-```
-
-# Gold donut plot
-```{r}
-df_gold_donut <- gold_country 
-
-# Data prep for plot
-df_gold_donut$perc <- df_gold_donut$num_gold_medals / sum(df_gold_donut$num_gold_medals)*100
-df_gold_donut$ymax <- cumsum(df_gold_donut$perc)
-df_gold_donut$ymin <- c(0, head(df_gold_donut$ymax, n=-1))
-df_gold_donut$labelPosition <- (df_gold_donut$ymax + df_gold_donut$ymin)/2
-df_gold_donut$label <- paste0(df_gold_donut$team, "\n value: ", df_gold_donut$num_gold_medals)
-
-# Actual plot
-gold_country_donut <- df_gold_donut %>%
-mutate(team = factor(team, 
-                            levels = c("USA", "CHN", "FRA"),
-                            labels = c("United States", "China", "France")))  %>%
-  ggplot(aes(ymax = ymax, ymin = ymin, xmax = 4, xmin = 3, fill = team)) +
-  geom_rect() +
-  geom_text(x = 5, aes(y = labelPosition, label = label), size = 3) +
-  coord_polar(theta = "y") +
-  xlim(c(-1, 5)) +
-  theme_void() +
-  theme(legend.position = "left") +
-  labs(
-    title = "Gold Medals By Country 1972 - 2020",
-    subtitle = "Subset by United States, China, France",
-    fill = "Country"
-  )
-
-gold_country_donut
-```
-
-# Silver medals by country
-```{r}
 silver_country <- olyswim %>%
   filter(rank == 2)%>%
   group_by(team) %>%
   summarise(num_silver_medals = n()) %>%
   arrange(desc(num_silver_medals))
 
-silver_plot1 <- silver_country %>%
-  mutate(team = factor(factor(gold_country$team, 
-                            levels = c("USA", "CHN", "FRA"),
-                            labels = c("United States", "China", "France")))) %>%
-  ggplot(aes(x = team, y = num_silver_medals, fill = team)) + 
-  geom_bar(stat = "identity", color = "white", size = 0.5) +
-  geom_text(aes(label = num_silver_medals), 
-            position = position_stack(vjust = 0.5), 
-            color = "white", 
-            size = 3) +
-  labs(title = "Silver Medals by Country 1972 - 2020",
-       subtitle = "Subset by United States, China, and France",
-       x = "Country",
-       y = "Number of Silver Medals",
-       fill = "Country") +
-  theme_minimal()
-  
-silver_plot1
-
-silver_plot_piechart <- silver_country %>%
-  mutate(team = factor(gold_country$team, 
-                            levels = c("USA", "CHN", "FRA"),
-                            labels = c("United States", "China", "France"))) %>%
-  ggplot(aes(x = "", y = num_silver_medals, fill = team)) +
-  geom_bar(stat = "identity", width = 1) +
-  coord_polar(theta = "y") +
-  geom_text(aes(label = num_silver_medals), 
-            position = position_stack(vjust = 0.5), 
-            color = "white", 
-            size = 3) +
-  labs(title = "Silver Medals by Country 1972 - 2020",
-       subtitle = "Subset by United States, China, and France",
-       x = NULL,
-       y = NULL,
-       fill = "Country") +
-  theme_void() +
-  theme(legend.position = "left")
-silver_plot_piechart
-```
-
-# Silver donut chart
-```{r}
-df_silver_donut <- silver_country 
-
-# Prepping data for plot
-df_silver_donut$perc <- df_silver_donut$num_silver_medals / sum(df_silver_donut$num_silver_medals)*100
-df_silver_donut$ymax <- cumsum(df_silver_donut$perc)
-df_silver_donut$ymin <- c(0, head(df_silver_donut$ymax, n=-1))
-df_silver_donut$labelPosition <- (df_silver_donut$ymax + df_silver_donut$ymin)/2
-df_silver_donut$label <- paste0(df_silver_donut$team, "\n value: ", df_silver_donut$num_silver_medals)
-
-# Actually making the plot
-silver_country_donut <- df_silver_donut %>%
-  mutate(team = factor(team, 
-                            levels = c("USA", "CHN", "FRA"),
-                            labels = c("United States", "China", "France"))) %>%
-  ggplot(aes(ymax = ymax, ymin = ymin, xmax = 4, xmin = 3, fill = team)) +
-  geom_rect() +
-  geom_text(x = 5, aes(y = labelPosition, label = label), size = 3) +
-  coord_polar(theta = "y") +
-  xlim(c(-1, 5)) +
-  theme_void() +
-  theme(legend.position = "left") +
-  labs(
-    title = "Silver Medals By Country 1972 - 2020",
-    subtitle = "Subset by United States, China, France",
-    fill = "Country"
-  )
-
-silver_country_donut
-```
-
-# Bronze medals by country
-```{r}
 bronze_country <- olyswim %>%
   filter(rank == 3)%>%
   group_by(team) %>%
   summarise(num_bronze_medals = n()) %>%
   arrange(desc(num_bronze_medals))
-
-bronze_plot1 <- bronze_country %>%
-  mutate(team = factor(bronze_country$team, 
-                            levels = c("USA", "CHN", "FRA"),
-                            labels = c("United States", "China", "France"))) %>%
-  ggplot(aes(x = team, y = num_bronze_medals, fill = team)) + 
-  geom_bar(stat = "identity", color = "white", size = 0.5) +
-  geom_text(aes(label = num_bronze_medals), 
-            position = position_stack(vjust = 0.5), 
-            color = "white", 
-            size = 3) +
-  labs(title = "Bronze Medals by Country 1972 - 2020",
-       subtitle = "Subset by United States, China, and France",
-       x = "Country",
-       y = "Number of Bronze Medals",
-       fill = "Country") +
-  theme_minimal()
-
-bronze_plot1
-
-bronze_plot_piechart <- bronze_country %>%
-  mutate(team = factor(gold_country$team, 
-                            levels = c("USA", "CHN", "FRA"),
-                            labels = c("United States", "China", "France"))) %>%
-  ggplot(aes(x = "", y = num_bronze_medals, fill = team)) +
-  geom_bar(stat = "identity", width = 1) +
-  coord_polar(theta = "y") +
-  geom_text(aes(label = num_bronze_medals), 
-            position = position_stack(vjust = 0.5), 
-            color = "white", 
-            size = 3) +
-  labs(title = "Bronze Medals by Country 1972 - 2020",
-       subtitle = "Subset by United States, China, and France",
-       x = NULL,
-       y = NULL,
-       fill = "Country") +
-  theme_void() +
-  theme(legend.position = "left")
-
-bronze_plot_piechart
 ```
 
-# Bronze donut chart
 ```{r}
-df_bronze_donut <- bronze_country 
+#| label: Side by side bar chart of medals
+#| echo: false
 
-# Prepping the data for plot
-df_bronze_donut$perc <- df_bronze_donut$num_bronze_medals / sum(df_bronze_donut$num_bronze_medals)*100
-df_bronze_donut$ymax <- cumsum(df_bronze_donut$perc)
-df_bronze_donut$ymin <- c(0, head(df_bronze_donut$ymax, n=-1))
-df_bronze_donut$labelPosition <- (df_bronze_donut$ymax + df_bronze_donut$ymin)/2
-df_bronze_donut$label <- paste0(df_bronze_donut$team, "\n value: ", df_bronze_donut$num_bronze_medals)
-
-# Actually making the plot
-bronze_country_donut <- df_bronze_donut %>%
-  mutate(team = factor(team, 
-                            levels = c("USA", "CHN", "FRA"),
-                            labels = c("United States", "China", "France"))) %>%
-  ggplot(aes(ymax = ymax, ymin = ymin, xmax = 4, xmin = 3, fill = team)) +
-  geom_rect() +
-  geom_text(x = 5, aes(y = labelPosition, label = label), size = 2.75) +
-  coord_polar(theta = "y") +
-  xlim(c(-1, 5)) +
-  theme_void() +
-  theme(legend.position = "left") +
-  labs(
-    title = "Silver Medals By Country 1972 - 2020",
-    subtitle = "Subset by United States, China, France",
-    fill = "Country"
-  )
-
-bronze_country_donut
-```
-
-# Side by Side Bar Chart of Medals
-```{r}
 agg_medal_data <- gold_country %>%
  left_join(silver_country, join_by(team)) %>%
-  left_join(bronze_country, join_by(team))
+left_join(bronze_country, join_by(team))
 
 agg_medal_long <- agg_medal_data %>%
   pivot_longer(
@@ -393,6 +206,25 @@ agg_medal_long <- agg_medal_data %>%
     names_to = "medal",
     values_to = "total"
   )
+
+agg_medal_data_renamed <- agg_medal_data %>%
+  dplyr::rename(
+    "Team" = team,
+    "Gold Medals" = num_gold_medals,
+    "Silver Medals" = num_silver_medals,
+    "Bronze Medals" = num_bronze_medals
+  )
+
+table1 <- agg_medal_data_renamed %>%
+  gt() %>%
+  tab_header(
+    title = "Table 1"
+  ) %>%
+  fmt_number(
+    columns = vars(`Team`, `Gold Medals`, `Silver Medals`, `Bronze Medals`),
+    decimals = 0
+  )
+table1
 
 agg_medal_barchart <- agg_medal_long %>%
   mutate(team = factor(team, 
@@ -407,19 +239,32 @@ agg_medal_barchart <- agg_medal_long %>%
             vjust = -0.5, 
             size = 3) +
   scale_fill_manual(values = c("Gold" = "gold", "Silver" = "gray", "Bronze" = "peru")) +
-  labs(title = "Medals Count by Country 1972 - 2020",
-       subtitle ="Subset by United States, China, and France",
-       x = "Country",
-       y = "Number of Medals",
-       fill = "Medal Type") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  theme_minimal()
+theme(
+    text = element_text(family = "Times"),  # Font family
+    axis.text = element_text(size = 10),    # Axis text size
+    axis.title = element_text(size = 12),   # Axis title size
+    plot.title = element_text(size = 14, face = "bold"),   # Plot title size and style
+    plot.subtitle = element_text(size = 12, face = "italic"), # Italicize the subtitle
+    legend.title = element_text(size = 10),               # Legend title size
+    legend.text = element_text(size = 8),                 # Legend text size
+    axis.text.x = element_text(angle = 45, hjust = 1)      # Rotate x-axis labels
+  ) +
+  labs(
+    title = "Figure 1",
+    subtitle = "Medals Count by Country 1972 - 2020",
+    x = "Country",
+    y = "Number of Medals",
+    fill = "Medal Type"
+  )
 
 agg_medal_barchart
+
 ```
 
-# Over Time Line Graph of Medals
+##### To evaluate our hypothesis positing the temporal fluctuations in the medal counts of each country (RQ1), an examination of the total number of medals earned by each country was examined over the span of 50 years (Figure 2).
+
 ```{r}
+#| echo: false
 gold_stacked_wide <- olyswim %>%
   group_by(team, year) %>%
   filter(rank == 1) %>%
@@ -463,8 +308,8 @@ agg_line_medals <-  agg_stacked_long %>%
   geom_line() +
   facet_wrap(~ team, scales = "free_y", ncol = 1) +
   labs(
-    title = "Number of Medals Over Years by Team",
-    subtitle = "Subset by United States, China, and France",
+    title = "Figure 2",
+    subtitle = "Number of Medals Over Years by Team",
     x = "Year",
     y = "Number of Medals",
     color = "Medal"
@@ -474,14 +319,189 @@ agg_line_medals <-  agg_stacked_long %>%
                    labels = c("1972", "1976", "1980", "1984", "1988", "1992", "1996", "2000", "2004", "2008", "2012", "2016", "2020")) +
   scale_y_continuous(
     limits = c(0, 18),
-    breaks = seq(0, 18, by = 2))
+    breaks = seq(0, 18, by = 2)) +
+  theme(
+    text = element_text(family = "Times"),  # Font family
+    axis.text = element_text(size = 10),    # Axis text size
+    axis.title = element_text(size = 12),   # Axis title size
+    plot.title = element_text(size = 14, face = "bold"),   # Plot title size and style
+    plot.subtitle = element_text(size = 12, face = "italic"), # Italicize the subtitle
+    legend.title = element_text(size = 10),               # Legend title size
+    legend.text = element_text(size = 8),                 # Legend text size
+    axis.text.x = element_text(angle = 45, hjust = 1)      # Rotate x-axis labels
+  )
 
 
 agg_line_medals
 ```
 
+##### The United States demonstrated a strong and consistent dominance in Olympic swimming across the time frame, which explains the large number of total medals earned by this country. They consistently won medals in every Olympics, with the exception of the 1980 Olympics. In comparison, France only began winning medals in 2004 and has not earned any since 2012. China also shows a small but consistent earnings of medals from 1992 to the most recent Olympics in 2020.
 
+##### To evaluate our second research question, the result times were evaluated across all 100m events for both men and women.
 
+##### The examination of women's Olympic swim times across multiple years reveals a compelling narrative of continuous improvement in athletic performance over the years, with an average improvement of 8.50 seconds across 100m events (Figure 3). The data illustrates a consistent trend of decreasing swim times, indicating advancements in training methodologies, technological innovations, and the overall evolution of the sport.
 
+```{r}
+#| label: Creating data for swim times
+#| echo: false
+olyswim_full <- read_csv(here("data", "Olympic_Swimming_Results_1912to2020.csv")) %>%
+  characterize() %>%
+  clean_names()
 
+olyswim_full <- olyswim_full %>%
+  filter(year >= 1969, year <=2020,
+         rank != 0, rank !=4, rank !=5) %>%
+  #  group_by(team) %>%
+   #filter(team == "USA" | team == "CHN" | team == "FRA") %>%
+  mutate(distance_in_meters = parse_number(distance_in_meters)) %>%  
+  mutate(foo = str_replace_all(results, "\\.", ":")) %>%
+  separate_wider_delim(foo, ":", names = c("h", "m", "s", "ms"), too_few = "align_end") %>%
+  mutate(across(c(h:ms), as.numeric),
+         across(c(h:ms), ~as.numeric(ifelse(is.na(.), "0", .))),
+         results_sec = case_when(
+           s == 0 ~ as.character(ms),
+           s!= 0 ~ paste0((h * 360) + (m * 60) + (s), ".", ms)
+         ),
+         results_sec = as.numeric(results_sec))
+```
 
+```{r}
+#| echo: false
+women_gold_100 <- olyswim_full %>%
+  group_by(year, stroke) %>%
+  filter(rank == 1, gender == "Women", distance_in_meters == 100)
+
+women_gold_100$total_sec <- (women_gold_100$m * 60) + women_gold_100$s
+
+women_gold_100 %>%
+  ggplot(aes(year, total_sec, color = stroke)) +
+  geom_point() +
+  geom_line()+
+  scale_color_brewer(palette = "Set2")+
+  labs(
+    title = "Figure 3",
+    subtitle = "Women 100m Gold Medal Times",
+    x = "Year",
+    y = "Seconds",
+    color = "Stroke"
+  ) +
+    theme_minimal() +
+  theme(
+    text = element_text(family = "Times"),  # Font family
+    axis.text = element_text(size = 10),    # Axis text size
+    axis.title = element_text(size = 12),   # Axis title size
+    plot.title = element_text(size = 14, face = "bold"),   # Plot title size and style
+    plot.subtitle = element_text(size = 12, face = "italic"), # Italicize the subtitle
+    legend.title = element_text(size = 10),               # Legend title size
+    legend.text = element_text(size = 8),                 # Legend text size
+    axis.text.x = element_text(angle = 45, hjust = 1)      # Rotate x-axis labels
+  )
+```
+
+##### The examination of men's Olympic swim times across multiple years reveals a compelling narrative of continuous improvement in athletic performance over the years, with an average improvement of 6.25 seconds across 100m events (Figure 4). The data illustrates a consistent trend of decreasing swim times, indicating advancements in training methodologies, technological innovations, and the overall evolution of the sport.
+
+```{r}
+#| echo: false
+men_gold_100 <- olyswim_full %>%
+  group_by(year, stroke) %>%
+  filter(rank == 1, gender == "Men", distance_in_meters == 100)
+
+men_gold_100$total_sec <- (men_gold_100$m * 60) + men_gold_100$s
+
+men_gold_100 %>%
+  ggplot(aes(year, total_sec, color = stroke)) +
+  geom_point() +
+  geom_line()+
+  scale_color_brewer(palette = "Set2")+
+  labs(
+    title = "Figure 4",
+    subtitle = "Men 100m Gold Medal Times",
+    x = "Year",
+    y = "Seconds",
+    color = "Stroke"
+  ) +
+    theme_minimal() +
+  theme(
+    text = element_text(family = "Times"),  # Font family
+    axis.text = element_text(size = 10),    # Axis text size
+    axis.title = element_text(size = 12),   # Axis title size
+    plot.title = element_text(size = 14, face = "bold"),   # Plot title size and style
+    plot.subtitle = element_text(size = 12, face = "italic"), # Italicize the subtitle
+    legend.title = element_text(size = 10),               # Legend title size
+    legend.text = element_text(size = 8),                 # Legend text size
+    axis.text.x = element_text(angle = 45, hjust = 1)      # Rotate x-axis labels
+  )
+```
+
+##### The analysis of the longitudinal data on men's and women's swim times in the 100m breaststroke over the years reveals a trend of continual improvement in performance for both genders. However, the standout observation is the notable and consistent increase in women's swim times at 12.3%, surpassing the rate of improvement seen in men's times of 10% (Figure 5).
+
+```{r}
+#| echo: false
+breaststorke100_gold <- olyswim_full %>%
+  group_by(gender, year) %>%
+  filter(rank == 1, stroke == "Breaststroke", distance_in_meters == 100) 
+
+breaststorke100_gold$total_sec <- (breaststorke100_gold$m * 60) + breaststorke100_gold$s
+
+breaststorke100_gold %>%
+  ggplot(aes(year, total_sec, color = gender)) +
+  geom_point() +
+  geom_line()+
+  scale_color_brewer(palette = "Set2")+
+  labs(
+    title = "Figure 5",
+    subtitle = "100m Breaststroke Gold Finish Times",
+    x = "Year",
+    y = "Seconds",
+    color = "Gender"
+  ) +
+    theme_minimal() +
+    theme(
+    text = element_text(family = "Times"),  # Font family
+    axis.text = element_text(size = 10),    # Axis text size
+    axis.title = element_text(size = 12),   # Axis title size
+    plot.title = element_text(size = 14, face = "bold"),   # Plot title size and style
+    plot.subtitle = element_text(size = 12, face = "italic"), # Italicize the subtitle
+    legend.title = element_text(size = 10),               # Legend title size
+    legend.text = element_text(size = 8),                 # Legend text size
+    axis.text.x = element_text(angle = 45, hjust = 1)      # Rotate x-axis labels
+  )
+```
+
+## Discussion
+
+#### **Medal Earning by Country**
+
+##### The distribution of Olympic swimming medals among these 3 countries can by influenced by a variety of factors. These variables include historical factors, cultural attributes, economic strength, and investments in athlete training programs.
+
+##### A history of early swimming programs play an important role in a country's success. Nations that realized early on how important it was to invest in infrastructure and training programs, such as the United States, laid the groundwork for long-term success. Countries with a strong sporting legacy may also benefit from an ingrained culture that nutures athletic talent. A country's talent pipeline and overall competitiveness in the Olympic swimming arena are influenced by the prior creation of youth development programs, coaching efforts, and competitive swimming leagues. Past choices and expenditures made on sports infrastructure, such as building first-rate swimming pools and training centers, have a lasting impact. The current state of swimming ability in each nation is influenced by past choices made about the importance of different sports, how resources are distributed, and how regulations are formulated.
+
+##### A country's economic strength and the governmental policies also impact a country's success in the Olympic sport of swimming. A more robust economy, such as those found in the United States and China, allow the financial means to invest substantially in sports programs, providing a competitve edge to their athletes. Factors such as state-of-the-art training facilities, cutting edge sports science, and elite coaching personnel all give athletes a greater chance for success. Strong economies not only enable the development of athletes, but also promote a culture of sports in which people are inspired to take sports such as swimming seriously and see it as a potential career path. Supportive policies by government agencies offer financial assistance for athletes, coaches, and sports facilities allow for these careers to be possible.
+
+##### Population size and demographics also may play a part. The United States and China display much larger populations than does France, allowing for a depth and diversity in the talent pool of available athletes. Larger populations inherently offer a broader base from which to identify and nuture athletic talent. Additionally, access to training programs and swimming facilities is connected to demographics. Countries where a greater percentage of the populace has access to training facilities and swimming pools are better equipped to spot and develop young talent. This ties back into the previous paragraph discussing economic strength and policy decisions in support of athletic training.
+
+#### **Average Finish Times Over the Years**
+
+##### The examination of gold medal finish times in 100m races provides valuable insights into the evolution of swimming performance. The data visualization reveals a notable improvement in finish times for the 100m backstroke over the course of the past century. However, understanding the multiple factors influencing this improvement requires a comprehensive investigation into various aspects of the sport.
+
+##### The data indicates that the rate of improvement in women's 100m race times has consistently outpaced that of their male counterparts over the decades, unveiling a noteworthy trend of accelerated enhancement in women's swimming performance. Over the years, there has been a commendable shift in attitudes and investments towards women's athletics, marked by increased visibility, recognition, and funding. Greater access to resources, training facilities, and coaching expertise may contribute to the observed trend, empowering women swimmers to push the boundaries of their performance. Additionally, the changing narrative around gender equality in sports has fostered a sense of empowerment and motivation among female athletes, potentially translating into higher levels of commitment and determination. To comprehensively explore the role of societal support, further research could delve into specific initiatives, policies, and cultural shifts that have positively impacted women's participation and success in swimming, thus providing a more nuanced understanding of the complex interplay between societal dynamics and athletic achievement.
+
+##### While the reasons behind the phenomenon of improved performance in both female and male swimmers warrant further investigation, it prompts a reevaluation of training methodologies, gender-specific physiological factors, and societal influences that may contribute to the observed divergence in performance trends between male and female athletes. Understanding and acknowledging this distinctive gender-specific nuance not only contribute to the nuanced narrative of competitive swimming but also underline the importance of tailored approaches in optimizing athletic potential for both men and women in the realm of 100m races.
+
+##### One possible contributing factor in the of improved performance in both female and male swimmers could be advancements in training techniques. Over the years, there have been significant developments in sports science, coaching methodologies, and training regimens. Swimmers may now benefit from more sophisticated and individualized training programs, tailored to enhance specific aspects of their performance such as strength, technique, and endurance. Investigating the correlation between changes in training methods and the observed improvements in finish times could provide crucial insights into the dynamic nature of competitive swimming.
+
+##### Furthermore, changes in nutritional knowledge and dietary practices could contribute to the improved athletic performance witnessed in 100m backstroke races. The role of proper nutrition in optimizing energy levels, recovery, and overall physical well-being is a crucial aspect of modern sports training. Investigating how nutritional strategies have evolved within the swimming community may reveal key insights into the factors influencing the observed trends in finish times.
+
+##### To draw more concrete conclusions about the reasons behind the improvement in 100m backstroke finish times, future research should employ a multidisciplinary approach. Collaboration between sports scientists, coaches, nutritionists, and athletes could provide a holistic understanding of the complex interplay of factors shaping the landscape of competitive swimming. By delving deeper into the specificities of training regimens, technological influences, and nutritional practices, we can better understand variables contributing to the observed trends in gold medal finish times over the years.
+
+## Conclusion
+
+##### An examination of swimming performance at the Olympics over the previous fifty years demonstrates the intricate interactions between various elements that influence a country's performance in the sport. China has a smaller but steady pattern of medal earnings, while the United States consistently dominates the Olympic Games by winning a significant number of medals. In contrast, France started winning medals later and has experienced performance fluctuations.
+
+##### Historical factors, including a nation's sporting legacy, early investments in swimming programs, and a culture that nurtures athletic talent, play a crucial role in shaping a country's success. The economic strength of a nation and supportive government policies further impact its ability to invest in sports programs, providing athletes with the necessary resources and infrastructure for success. Population size and demographics also contribute, with larger populations offering a broader talent pool and greater diversity in available athletes.
+
+##### The examination of average finish times in 100m backstroke races reveals a significant improvement in performance over the years, with women consistently outpacing men in the rate of improvement. This trend reflects changing attitudes, increased visibility, and enhanced support for women in sports. Factors such as advancements in training techniques, technology, and nutrition may contribute to the observed improvements in performance.
+
+##### Further multidisciplinary research is warranted to comprehensively understand these trends. Collaboration between sports scientists, coaches, nutritionists, and athletes can provide a more complete understanding of the various factors influencing the sport of competitive swimming. By examining deeper the training regimens, technological influences, and nutritional practices, we can gain valuable insights into the nuanced reasons behind the observed trends in Olympic swimming performance over the last half-century.
+
+## References
